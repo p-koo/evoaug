@@ -5,6 +5,7 @@ from scipy import stats
 from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared_error
 
 
+
 class RobustModel(LightningModule):
     """supervised learning model or supervised transfer learning model with data augmentation
         
@@ -41,8 +42,8 @@ class RobustModel(LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-        x = self._apply_augment(x)
-        y_hat = self(x)
+        x_new = self._apply_augment(x)
+        y_hat = self(x_new)
         loss = self.criterion(y_hat, y)
         self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True, logger=True)        
         return loss
@@ -51,11 +52,13 @@ class RobustModel(LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch 
         if self.inference_aug:
-            x = self._apply_augment(x)
+            x_new = self._apply_augment(x)
         else:
             if self.insert_max:
-                x = self._pad_end(x)
-        y_hat = self(x)
+                x_new = self._pad_end(x)
+            else:
+                x_new = x
+        y_hat = self(x_new)
         loss = self.criterion(y_hat, y)
         self.log('val_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
     
@@ -67,7 +70,9 @@ class RobustModel(LightningModule):
         else:
             if self.insert_max:
                 x = self._pad_end(x)
-        y_hat = self(x)
+            else:
+                x_new = x
+        y_hat = self(x_new)
         loss = self.criterion(y_hat, y)
         self.log('test_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
         
@@ -111,7 +116,8 @@ class RobustModel(LightningModule):
                 if hasattr(self.augment_list[aug_index], 'insert_max'):
                     insert_status = False
             if insert_status:
-                seq = self._pad_end(seq)
+                if self.insert_max:
+                    seq = self._pad_end(seq)
             x_new.append(seq)
         return torch.cat(x_new)
 
@@ -120,7 +126,7 @@ class RobustModel(LightningModule):
         N_batch, A, L = x.shape
         a = torch.eye(A)
         p = torch.tensor([1/A for _ in range(A)])
-        padding = torch.stack([a[p.multinomial(L - self.insert_max, replacement=True)].transpose(0,1) for _ in range(N_batch)]).to(x.device)
+        padding = torch.stack([a[p.multinomial(self.insert_max, replacement=True)].transpose(0,1) for _ in range(N_batch)]).to(x.device)
         x_padded = torch.cat( [x, padding.to(x.device)], dim=2 )
         return x_padded
 
@@ -145,6 +151,5 @@ def calculate_auroc(y_true, y_score):
     for class_index in range(y_true.shape[-1]):
         aurocs_by_class.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
     return np.array(aurocs_by_class)
-
 
 
