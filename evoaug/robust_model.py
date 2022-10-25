@@ -86,6 +86,16 @@ class RobustModel(LightningModule):
                 self.log('test_spearman_rho_'+str(i), rho_i, on_step=False, on_epoch=True, prog_bar=True)
 
 
+    def predict_step(self, batch, batch_idx):
+        x, y = batch 
+        if self.inference_aug:
+            x = self._apply_augment(x)
+        else:
+            if self.insert_max:
+                x = self._pad_end(x)
+        return self(x)
+
+
     def _sample_aug_combos(self, batch_size):
         # number of augmentations per sequence
         if self.hard_aug:
