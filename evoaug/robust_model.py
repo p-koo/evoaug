@@ -87,7 +87,7 @@ class RobustModel(LightningModule):
 
 
     def predict_step(self, batch, batch_idx):
-        x, y = batch 
+        x = batch 
         if self.inference_aug:
             x = self._apply_augment(x)
         else:
