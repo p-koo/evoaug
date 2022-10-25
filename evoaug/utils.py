@@ -3,7 +3,6 @@ import numpy as np
 import torch
 import pytorch_lightning as pl
 from torch.utils.data import TensorDataset, DataLoader
-from sklearn.metrics import roc_auc_score
 
 
 class H5DataModule(pl.LightningDataModule):

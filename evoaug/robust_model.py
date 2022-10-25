@@ -2,7 +2,7 @@ import torch
 from pytorch_lightning.core.lightning import LightningModule
 import numpy as np
 from scipy import stats
-from sklearn.metrics import average_precision_score, mean_squared_error
+from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared_error
 
 
 class RobustModel(LightningModule):
