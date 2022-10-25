@@ -142,7 +142,7 @@ class RobustModel(LightningModule):
 
 
 
-def load_model_from_checkpoint(model, checkpoint)
+def load_model_from_checkpoint(model, checkpoint):
     return model.load_from_checkpoint(checkpoint_path+'.ckpt', 
                                              model=model.model, 
                                              criterion=model.criterion, 
