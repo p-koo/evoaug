@@ -56,7 +56,7 @@ class RobustModel(LightningModule):
         else:
             if self.insert_max:
                 x = self._pad_end(x)
-        y_hat = self(x_new)
+        y_hat = self(x)
         loss = self.criterion(y_hat, y)
         self.log('val_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
     
