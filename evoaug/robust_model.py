@@ -142,17 +142,17 @@ class RobustModel(LightningModule):
 
 
 
-def load_model_from_checkpoint(model, checkpoint):
-    return model.load_from_checkpoint(checkpoint_path+'.ckpt', 
-                                             model=model.model, 
-                                             criterion=model.criterion, 
-                                             optimizer=model.optimizer,
-                                             augment_list=model.augment_list, 
-                                             max_augs_per_seq=model.max_augs_per_seq, 
-                                             hard_aug=model.hard_aug, 
-                                             finetune=model.finetune,
-                                             inference_aug=model.inference_aug
-                                             )
+def load_model_from_checkpoint(model, checkpoint_path):
+    return model.load_from_checkpoint(checkpoint_path, 
+                                     model=model.model, 
+                                     criterion=model.criterion, 
+                                     optimizer=model.optimizer,
+                                     augment_list=model.augment_list, 
+                                     max_augs_per_seq=model.max_augs_per_seq, 
+                                     hard_aug=model.hard_aug, 
+                                     finetune=model.finetune,
+                                     inference_aug=model.inference_aug
+                                     )
 
 
 #------------------------------------------------------------------------
