@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import pytorch_lightning as pl
 from torch.utils.data import TensorDataset, DataLoader
+from sklearn.metrics import roc_auc_score
 
 
 class H5DataModule(pl.LightningDataModule):
@@ -56,6 +57,25 @@ def make_directory(directory):
         pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
         print("Making directory: " + directory)
 
+
+
+def configure_optimizer(lr=0.001, weight_decay=1e-6, decay_factor=0.1, patience=5, monitor='val_loss'):
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, cnn_model.parameters()), lr=lr, weight_decay=weight_decay)
+    return {
+        "optimizer": optimizer,
+        "lr_scheduler": {
+            "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=decay_factor, patience=patience),
+            "monitor": monitor,
+        },
+    }
+
+
+
+def calculate_auroc(y_true, y_score):
+    aurocs_by_class = []
+    for class_index in range(y_true.shape[-1]):
+        aurocs_by_class.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(aurocs_by_class)
 
 
 

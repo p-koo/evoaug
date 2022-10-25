@@ -2,8 +2,8 @@ import torch
 from pytorch_lightning.core.lightning import LightningModule
 import numpy as np
 from scipy import stats
-from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared_error
-
+from sklearn.metrics import average_precision_score, mean_squared_error
+from utils import calculate_auroc
 
 
 class RobustModel(LightningModule):
@@ -140,12 +140,3 @@ def augment_max_len(augment_list):
         if hasattr(augment, 'insert_max'):
             insert_max = augment.insert_max
     return insert_max
-
-
-def calculate_auroc(y_true, y_score):
-    aurocs_by_class = []
-    for class_index in range(y_true.shape[-1]):
-        aurocs_by_class.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(aurocs_by_class)
-
-
