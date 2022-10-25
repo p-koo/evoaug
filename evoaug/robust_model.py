@@ -112,6 +112,7 @@ class RobustModel(LightningModule):
                     insert_status = False
             if insert_status:
                 seq = self._pad_end(seq)
+            print(seq.shape)
             x_new.append(seq)
         return torch.cat(x_new)
 
