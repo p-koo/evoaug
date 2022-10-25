@@ -108,7 +108,7 @@ class RobustModel(LightningModule):
             insert_status = True
             for aug_index in aug_indices:
                 seq = self.augment_list[aug_index](seq)
-                if hasattr(augment, 'insert_max'):
+                if hasattr(self.augment_list[aug_index], 'insert_max'):
                     insert_status = False
             if insert_status:
                 seq = self._pad_end(seq)
