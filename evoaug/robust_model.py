@@ -16,7 +16,7 @@ class RobustModel(LightningModule):
             loss_criterion: loss criterion to use--should be a function, e.g. nn.BCELoss()
             
     """
-    def __init__(self, model, criterion, augment_list, max_augs_per_seq=2, hard_aug=True, inference_aug=False):
+    def __init__(self, model, criterion, optimizer, augment_list=[], max_augs_per_seq=2, hard_aug=True, inference_aug=False):
         super().__init__()
         self.model = model
         self.criterion = criterion 
@@ -25,7 +25,7 @@ class RobustModel(LightningModule):
         self.max_augs_per_seq = max_augs_per_seq
         self.hard_aug = hard_aug
         self.inference_aug = inference_aug
-
+        self.optimizer = optimizer
         self.max_num_aug = len(augment_list)
         self.insert_max = augment_max_len(augment_list)
 
@@ -34,6 +34,10 @@ class RobustModel(LightningModule):
         y_hat = self.model(x)
         return y_hat
     
+
+    def configure_optimizers(self):
+        return self.optimizer
+
 
     def training_step(self, batch, batch_idx):
         x, y = batch
