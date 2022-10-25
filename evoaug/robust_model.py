@@ -42,8 +42,8 @@ class RobustModel(LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-        x_new = self._apply_augment(x)
-        y_hat = self(x_new)
+        x = self._apply_augment(x)
+        y_hat = self(x)
         loss = self.criterion(y_hat, y)
         self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True, logger=True)        
         return loss
@@ -52,12 +52,10 @@ class RobustModel(LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch 
         if self.inference_aug:
-            x_new = self._apply_augment(x)
+            x = self._apply_augment(x)
         else:
             if self.insert_max:
-                x_new = self._pad_end(x)
-            else:
-                x_new = x
+                x = self._pad_end(x)
         y_hat = self(x_new)
         loss = self.criterion(y_hat, y)
         self.log('val_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
@@ -70,9 +68,7 @@ class RobustModel(LightningModule):
         else:
             if self.insert_max:
                 x = self._pad_end(x)
-            else:
-                x_new = x
-        y_hat = self(x_new)
+        y_hat = self(x)
         loss = self.criterion(y_hat, y)
         self.log('test_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
         
