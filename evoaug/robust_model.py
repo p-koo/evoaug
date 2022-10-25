@@ -22,7 +22,7 @@ class RobustModel(LightningModule):
         self.criterion = criterion 
         self.optimizer = optimizer
         self.augment_list = augment_list
-        self.max_augs_per_seq = max_augs_per_seq
+        self.max_augs_per_seq = np.minimum(max_augs_per_seq, len(augment_list))
         self.hard_aug = hard_aug
         self.inference_aug = inference_aug
         self.optimizer = optimizer
