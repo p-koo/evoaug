@@ -106,7 +106,7 @@ class RobustModel(LightningModule):
         for aug_indices, seq in zip(aug_combos, x):
             seq = torch.unsqueeze(seq, dim=0)
             for aug_index in aug_indices:
-                seq = self.augment_list[aug_index](seq):
+                seq = self.augment_list[aug_index](seq)
             x_new.append(seq)
         return torch.cat(x_new)
 
