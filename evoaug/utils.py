@@ -59,8 +59,8 @@ def make_directory(directory):
 
 
 
-def configure_optimizer(lr=0.001, weight_decay=1e-6, decay_factor=0.1, patience=5, monitor='val_loss'):
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, cnn_model.parameters()), lr=lr, weight_decay=weight_decay)
+def configure_optimizer(model, lr=0.001, weight_decay=1e-6, decay_factor=0.1, patience=5, monitor='val_loss'):
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr, weight_decay=weight_decay)
     return {
         "optimizer": optimizer,
         "lr_scheduler": {
@@ -69,13 +69,6 @@ def configure_optimizer(lr=0.001, weight_decay=1e-6, decay_factor=0.1, patience=
         },
     }
 
-
-
-def calculate_auroc(y_true, y_score):
-    aurocs_by_class = []
-    for class_index in range(y_true.shape[-1]):
-        aurocs_by_class.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(aurocs_by_class)
 
 
 
