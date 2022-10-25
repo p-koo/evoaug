@@ -105,8 +105,13 @@ class RobustModel(LightningModule):
         x_new = []
         for aug_indices, seq in zip(aug_combos, x):
             seq = torch.unsqueeze(seq, dim=0)
+            insert_status = True
             for aug_index in aug_indices:
                 seq = self.augment_list[aug_index](seq)
+                if hasattr(augment, 'insert_max'):
+                    insert_status = False
+            if insert_status:
+                seq = self._pad_end(seq)
             x_new.append(seq)
         return torch.cat(x_new)
 
@@ -115,7 +120,7 @@ class RobustModel(LightningModule):
         N_batch, A, L = x.shape
         a = torch.eye(A)
         p = torch.tensor([1/A for _ in range(A)])
-        padding = torch.stack([a[p.multinomial(self.insert_max, replacement=True)].transpose(0,1) for _ in range(N_batch)]).to(x.device)
+        padding = torch.stack([a[p.multinomial(L - self.insert_max, replacement=True)].transpose(0,1) for _ in range(N_batch)]).to(x.device)
         x_padded = torch.cat( [x, padding.to(x.device)], dim=2 )
         return x_padded
 
