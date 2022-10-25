@@ -6,7 +6,7 @@ from torch.utils.data import TensorDataset, DataLoader
 
 
 class H5DataModule(pl.LightningDataModule):
-    def __init__(self, data_path, batch_size=128, lower_case=False):
+    def __init__(self, data_path, batch_size=128, stage=None, lower_case=False):
         super().__init__()
         self.data_path = data_path
         self.batch_size = batch_size
