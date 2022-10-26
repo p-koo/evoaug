@@ -17,7 +17,7 @@ class H5DataModule(pl.LightningDataModule):
             self.y = 'y'
         self.transpose = transpose
         self.setup(stage)
-        
+
     def setup(self, stage=None):
         # Assign train and val split(s) for use in DataLoaders
         if stage == "fit" or stage is None:
@@ -30,7 +30,7 @@ class H5DataModule(pl.LightningDataModule):
 
                 self.x_train = torch.from_numpy(x_train)
                 self.y_train = torch.from_numpy(np.array(dataset[self.y+"_train"]).astype(np.float32))
-                self.x_valid = torch.from_numpy(x_vali)
+                self.x_valid = torch.from_numpy(x_valid)
                 self.y_valid = torch.from_numpy(np.array(dataset[self.y+"_valid"]).astype(np.float32))
             _, self.A, self.L = self.x_train.shape # N = number of seqs, A = alphabet size (number of nucl.), L = length of seqs
             self.num_classes = self.y_train.shape[1]
