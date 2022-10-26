@@ -7,9 +7,9 @@ from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared
 from scipy import stats
 
 
-def evaluate_model(y_test, pred, verbose=True):
+def evaluate_model(y_test, pred, task, verbose=True):
 
-    if isinstance(pl_model.criterion, torch.nn.modules.loss.BCELoss):
+    if task == 'binary':
         auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
         aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
 
@@ -18,7 +18,7 @@ def evaluate_model(y_test, pred, verbose=True):
             print("Test AUPR : %.4f"%(aupr))
         return auroc, aupr
 
-    elif isinstance(pl_model.criterion, torch.nn.modules.loss.MSELoss):
+    elif task == 'regression': #isinstance(pl_model.criterion, torch.nn.modules.loss.MSELoss):
         mse = calculate_mse(y_test, pred)
         pearsonr = calculate_pearsonr(y_test, pred)
         spearmanr = calculate_spearmanr(y_test, pred)
