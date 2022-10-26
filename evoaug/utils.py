@@ -83,7 +83,7 @@ def evaluate_model(y_test, pred, task, verbose=True):
             print("Test Spearman r: %.4f"%(spearmanr))
         return mse, pearsonr, spearmanr
 
-    else task == 'binary':
+    else: 
         auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
         aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
         if verbose:
