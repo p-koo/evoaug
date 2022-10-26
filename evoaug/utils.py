@@ -6,7 +6,7 @@ from torch.utils.data import TensorDataset, DataLoader
 
 
 class H5DataModule(pl.LightningDataModule):
-    def __init__(self, data_path, batch_size=128, stage=None, lower_case=False):
+    def __init__(self, data_path, batch_size=128, stage=None, lower_case=False, transpose=False):
         super().__init__()
         self.data_path = data_path
         self.batch_size = batch_size
@@ -21,9 +21,15 @@ class H5DataModule(pl.LightningDataModule):
         # Assign train and val split(s) for use in DataLoaders
         if stage == "fit" or stage is None:
             with h5py.File(self.data_path, 'r') as dataset:
-                self.x_train = torch.from_numpy(np.array(dataset[self.x+"_train"]).astype(np.float32))
+                x_train = np.array(dataset[self.x+"_train"]).astype(np.float32)
+                x_valid = np.array(dataset[self.x+"_valid"]).astype(np.float32)
+                if transpose:
+                    x_train = np.transpose(x_train, (0,2,1))
+                    x_valid = np.transpose(x_valid, (0,2,1))
+
+                self.x_train = torch.from_numpy(x_train)
                 self.y_train = torch.from_numpy(np.array(dataset[self.y+"_train"]).astype(np.float32))
-                self.x_valid = torch.from_numpy(np.array(dataset[self.x+"_valid"]).astype(np.float32))
+                self.x_valid = torch.from_numpy(x_vali)
                 self.y_valid = torch.from_numpy(np.array(dataset[self.y+"_valid"]).astype(np.float32))
             _, self.A, self.L = self.x_train.shape # N = number of seqs, A = alphabet size (number of nucl.), L = length of seqs
             self.num_classes = self.y_train.shape[1]
@@ -31,7 +37,10 @@ class H5DataModule(pl.LightningDataModule):
         # Assign test split(s) for use in DataLoaders
         if stage == "test" or stage is None:
             with h5py.File(self.data_path, "r") as dataset:
-                self.x_test = torch.from_numpy(np.array(dataset[self.x+"_test"]).astype(np.float32))
+                x_test = np.array(dataset[self.x+"_test"]).astype(np.float32)
+                if transpose:
+                    x_test = np.transpose(x_test, (0,2,1))
+                self.x_test = torch.from_numpy(x_test)
                 self.y_test = torch.from_numpy(np.array(dataset[self.y+"_test"]).astype(np.float32))
             _, self.A, self.L = self.x_train.shape
             self.num_classes = self.y_train.shape[1]
