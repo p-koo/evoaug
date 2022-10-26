@@ -1,8 +1,6 @@
 import torch
 from pytorch_lightning.core.lightning import LightningModule
 import numpy as np
-from scipy import stats
-from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared_error
 
 
 class RobustModel(LightningModule):
@@ -76,20 +74,6 @@ class RobustModel(LightningModule):
         loss = self.criterion(y_hat, y)
         self.log('test_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
         
-        if isinstance(self.criterion, torch.nn.modules.loss.BCELoss):
-            auroc = np.nanmean( calculate_auroc(y.cpu().numpy(), y_hat.cpu().numpy()) ) 
-            aupr = np.nanmean( average_precision_score(y.cpu().numpy(), y_hat.cpu().numpy(), average=None) ) 
-            self.log('test_auroc', auroc, on_step=False, on_epoch=True, prog_bar=True)
-            self.log('test_aupr', aupr, on_step=False, on_epoch=True, prog_bar=True)
-        elif isinstance(self.criterion, torch.nn.modules.loss.MSELoss):
-            for i in range(y.shape[-1]):    
-                mse_i = mean_squared_error(y[:,i].cpu(), y_hat[:,i].cpu()).item()
-                r_i = stats.pearsonr(y[:,i].cpu(), y_hat[:,i].cpu())[0]
-                rho_i = stats.spearmanr(y[:,i].cpu(), y_hat[:,i].cpu())[0]
-                self.log('test_mse_'+str(i), mse_i, on_step=False, on_epoch=True, prog_bar=True)
-                self.log('test_pearson_r_'+str(i), r_i, on_step=False, on_epoch=True, prog_bar=True)
-                self.log('test_spearman_rho_'+str(i), rho_i, on_step=False, on_epoch=True, prog_bar=True)
-
 
     def predict_step(self, batch, batch_idx):
         x = batch 
@@ -142,6 +126,8 @@ class RobustModel(LightningModule):
 
 
 
+
+
 def load_model_from_checkpoint(model, checkpoint_path):
     return model.load_from_checkpoint(checkpoint_path, 
                                      model=model.model, 
@@ -166,12 +152,4 @@ def augment_max_len(augment_list):
         if hasattr(augment, 'insert_max'):
             insert_max = augment.insert_max
     return insert_max
-
-
-def calculate_auroc(y_true, y_score):
-    aurocs_by_class = []
-    for class_index in range(y_true.shape[-1]):
-        aurocs_by_class.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(aurocs_by_class)
-
 
