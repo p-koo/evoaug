@@ -64,7 +64,7 @@ def get_predictions(model, x, batch_size=100):
     trainer = pl.Trainer(gpus=1)
     dataloader = torch.utils.data.DataLoader(x, batch_size=batch_size, shuffle=False) 
     pred = trainer.predict(model, dataloaders=dataloader)
-    return pred
+    return np.concatenate(pred)
 
 
 
