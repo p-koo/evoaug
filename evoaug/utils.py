@@ -8,8 +8,6 @@ from scipy import stats
 
 
 def evaluate_model(y_test, pred, verbose=True):
-    y_test = y_test.cpu().numpy()
-    pred = pred.cpu().numpy()
 
     if isinstance(pl_model.criterion, torch.nn.modules.loss.BCELoss):
         auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
@@ -63,10 +61,14 @@ def calculate_spearmanr(y_true, y_score):
     return np.array(vals)
 
 
-def get_predictions(model, x, batch_size=100):
+def get_predictions(model, x, batch_size=100, numpy=True):
     trainer = pl.Trainer(gpus=1)
     dataloader = torch.utils.data.DataLoader(x, batch_size=batch_size, shuffle=False) 
-    return trainer.predict(model, dataloaders=dataloader)
+    pred = trainer.predict(model, dataloaders=dataloader)
+    if numpy:
+        return pred.cpu().numpy()
+    else:
+        return pred 
 
 
 
