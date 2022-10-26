@@ -15,8 +15,8 @@ class H5DataModule(pl.LightningDataModule):
         if lower_case:
             self.x = 'x'
             self.y = 'y'
-        self.setup(stage)
         self.transpose = transpose
+        self.setup(stage)
         
     def setup(self, stage=None):
         # Assign train and val split(s) for use in DataLoaders
