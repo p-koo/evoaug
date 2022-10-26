@@ -7,65 +7,6 @@ from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared
 from scipy import stats
 
 
-def evaluate_model(y_test, pred, task, verbose=True):
-
-    if task == 'binary':
-        auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
-        aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
-        if verbose:
-            print("Test AUROC: %.4f"%(auroc))
-            print("Test AUPR : %.4f"%(aupr))
-        return auroc, aupr
-
-    elif task == 'regression': #isinstance(pl_model.criterion, torch.nn.modules.loss.MSELoss):
-        mse = calculate_mse(y_test, pred)
-        pearsonr = calculate_pearsonr(y_test, pred)
-        spearmanr = calculate_spearmanr(y_test, pred)
-        if verbose:
-            print("Test MSE       : %.4f"%(mse))
-            print("Test Pearson r : %.4f"%(pearsonr))
-            print("Test Spearman r: %.4f"%(spearmanr))
-
-        return mse, pearsonr, spearmanr
-
-
-def calculate_auroc(y_true, y_score):
-    vals = []
-    for class_index in range(y_true.shape[-1]):
-        vals.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(vals)
-
-def calculate_aupr(y_true, y_score):
-    vals = []
-    for class_index in range(y_true.shape[-1]):
-        vals.append( average_precision_score(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(vals)
-
-def calculate_mse(y_true, y_score):
-    vals = []
-    for class_index in range(y_true.shape[-1]):
-        vals.append( mean_squared_error(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(vals)
-
-def calculate_pearsonr(y_true, y_score):
-    vals = []
-    for class_index in range(y_true.shape[-1]):
-        vals.append( stats.pearsonr(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(vals)
-    
-def calculate_spearmanr(y_true, y_score):
-    vals = []
-    for class_index in range(y_true.shape[-1]):
-        vals.append( stats.spearmanr(y_true[:,class_index], y_score[:,class_index]) )    
-    return np.array(vals)
-
-
-def get_predictions(model, x, batch_size=100):
-    trainer = pl.Trainer(gpus=1)
-    dataloader = torch.utils.data.DataLoader(x, batch_size=batch_size, shuffle=False) 
-    pred = trainer.predict(model, dataloaders=dataloader)
-    return np.concatenate(pred)
-
 
 
 class H5DataModule(pl.LightningDataModule):
@@ -120,6 +61,66 @@ class H5DataModule(pl.LightningDataModule):
     def test_dataloader(self):
         test_dataset = TensorDataset(self.x_test, self.y_test)
         return DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False) 
+
+
+
+def get_predictions(model, x, batch_size=100):
+    trainer = pl.Trainer(gpus=1)
+    dataloader = torch.utils.data.DataLoader(x, batch_size=batch_size, shuffle=False) 
+    pred = trainer.predict(model, dataloaders=dataloader)
+    return np.concatenate(pred)
+
+
+
+def evaluate_model(y_test, pred, task, verbose=True):
+    if task == 'regression': #isinstance(pl_model.criterion, torch.nn.modules.loss.MSELoss):
+        mse = calculate_mse(y_test, pred)
+        pearsonr = calculate_pearsonr(y_test, pred)
+        spearmanr = calculate_spearmanr(y_test, pred)
+        if verbose:
+            print("Test MSE       : %.4f"%(mse))
+            print("Test Pearson r : %.4f"%(pearsonr))
+            print("Test Spearman r: %.4f"%(spearmanr))
+        return mse, pearsonr, spearmanr
+
+    else task == 'binary':
+        auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
+        aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
+        if verbose:
+            print("Test AUROC: %.4f"%(auroc))
+            print("Test AUPR : %.4f"%(aupr))
+        return auroc, aupr
+
+def calculate_auroc(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_aupr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( average_precision_score(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_mse(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( mean_squared_error(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_pearsonr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( stats.pearsonr(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+    
+def calculate_spearmanr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( stats.spearmanr(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
 
 
 
