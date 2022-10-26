@@ -3,6 +3,56 @@ import numpy as np
 import torch
 import pytorch_lightning as pl
 from torch.utils.data import TensorDataset, DataLoader
+from sklearn.metrics import roc_auc_score, average_precision_score, mean_squared_error
+from scipy import stats
+
+
+def evaluate_model(pl_model, x_test, y_test):
+    pred = pl_model.predict(x_test).cpu().numpy()
+    y_test = y_test.cpu().numpy()
+
+    if isinstance(pl_model.criterion, torch.nn.modules.loss.BCELoss):
+        auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
+        aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
+        return auroc, aupr
+
+    elif isinstance(pl_model.criterion, torch.nn.modules.loss.MSELoss):
+        mse = calculate_mse(y_test, pred)
+        pearsonr = calculate_pearsonr(y_test, pred)
+        spearmanr = calculate_spearmanr(y_test, pred)
+        return mse, pearsonr, spearmanr
+
+
+def calculate_auroc(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( roc_auc_score(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_aupr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( average_precision_score(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_mse(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( mean_squared_error(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
+def calculate_pearsonr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( stats.pearsonr(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+    
+def calculate_spearmanr(y_true, y_score):
+    vals = []
+    for class_index in range(y_true.shape[-1]):
+        vals.append( stats.spearmanr(y_true[:,class_index], y_score[:,class_index]) )    
+    return np.array(vals)
+
 
 
 class H5DataModule(pl.LightningDataModule):
