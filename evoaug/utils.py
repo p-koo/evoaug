@@ -12,7 +12,6 @@ def evaluate_model(y_test, pred, task, verbose=True):
     if task == 'binary':
         auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
         aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
-
         if verbose:
             print("Test AUROC: %.4f"%(auroc))
             print("Test AUPR : %.4f"%(aupr))
