@@ -61,14 +61,11 @@ def calculate_spearmanr(y_true, y_score):
     return np.array(vals)
 
 
-def get_predictions(model, x, batch_size=100, numpy=True):
+def get_predictions(model, x, batch_size=100):
     trainer = pl.Trainer(gpus=1)
     dataloader = torch.utils.data.DataLoader(x, batch_size=batch_size, shuffle=False) 
     pred = trainer.predict(model, dataloaders=dataloader)
-    if numpy:
-        return pred.cpu().numpy()
-    else:
-        return pred 
+    return pred
 
 
 
