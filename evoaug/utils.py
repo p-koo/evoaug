@@ -38,7 +38,7 @@ def evaluate_model(y_test, pred, task, verbose=True):
             print("Test AUROC: %.4f +/- %.4f"%(np.nanmean(auroc), np.nanstd(auroc)))
             print("Test AUPR : %.4f +/- %.4f"%(np.nanmean(aupr), np.nanstd(aupr)))
         return auroc, aupr
-        
+
 
 def calculate_auroc(y_true, y_score):
     vals = []
@@ -94,10 +94,8 @@ def configure_optimizer(model, lr=0.001, weight_decay=1e-6, decay_factor=0.1, pa
 
 
 #------------------------------------------------------------------------
-# useful functions
+# Generic Dataloader for pytorch
 #------------------------------------------------------------------------
-
-
 
 
 class H5DataModule(pl.LightningDataModule):
@@ -122,7 +120,6 @@ class H5DataModule(pl.LightningDataModule):
                 if self.transpose:
                     x_train = np.transpose(x_train, (0,2,1))
                     x_valid = np.transpose(x_valid, (0,2,1))
-
                 self.x_train = torch.from_numpy(x_train)
                 self.y_train = torch.from_numpy(np.array(dataset[self.y+"_train"]).astype(np.float32))
                 self.x_valid = torch.from_numpy(x_valid)
