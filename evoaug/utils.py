@@ -26,18 +26,19 @@ def evaluate_model(y_test, pred, task, verbose=True):
         pearsonr = calculate_pearsonr(y_test, pred)
         spearmanr = calculate_spearmanr(y_test, pred)
         if verbose:
-            print("Test MSE       : %.4f"%(mse))
-            print("Test Pearson r : %.4f"%(pearsonr))
-            print("Test Spearman r: %.4f"%(spearmanr))
+            print("Test MSE       : %.4f +/- %.4f"%(np.nanmean(mse), np.nanstd(mse)))
+            print("Test Pearson r : %.4f +/- %.4f"%(np.nanmean(pearsonr), np.nanstd(pearsonr)))
+            print("Test Spearman r: %.4f +/- %.4f"%(np.nanmean(spearmanr), np.nanstd(spearmanr)))
         return mse, pearsonr, spearmanr
 
     else: 
-        auroc = np.nanmean( calculate_auroc(y_test, pred) ) 
-        aupr = np.nanmean( calculate_aupr(y_test, pred) ) 
+        auroc = calculate_auroc(y_test, pred) 
+        aupr = calculate_aupr(y_test, pred) 
         if verbose:
-            print("Test AUROC: %.4f"%(auroc))
-            print("Test AUPR : %.4f"%(aupr))
+            print("Test AUROC: %.4f +/- %.4f"%(np.nanmean(auroc), np.nanstd(auroc)))
+            print("Test AUPR : %.4f +/- %.4f"%(np.nanmean(aupr), np.nanstd(aupr)))
         return auroc, aupr
+        
 
 def calculate_auroc(y_true, y_score):
     vals = []
