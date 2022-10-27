@@ -5,9 +5,9 @@ Evolution-inspired augmentations improve deep learning for regulatory genomics" 
 
 This PyTorch package makes it easy to pretrain sequence-based deep learning models for regulatory genomics data with evolution-inspired data augmentations followed by a finetuning on the original, unperturbed sequence data. 
 
-<img src="fig/augmentations.png" alt="drawing" width="200"/>
+<img src="fig/augmentations.png" alt="fig" width="500"/>
 
-<img src="fig/overview.png" alt="drawing" width="200"/>
+<img src="fig/overview.png" alt="overview" width="500"/>
 
 
 
