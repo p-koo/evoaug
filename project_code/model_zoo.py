@@ -275,43 +275,50 @@ class CNN(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
         
+        self.activation1 = nn.ReLU()
         self.activation = nn.ReLU()
+        self.dropout1 = nn.Dropout(0.2)
         self.dropout2 = nn.Dropout(0.2)
         self.dropout3 = nn.Dropout(0.2)
-        self.dropout4 = nn.Dropout(0.2)
-        self.dropout5 = nn.Dropout(0.5)
+        self.dropout4 = nn.Dropout(0.5)
         self.flatten = nn.Flatten()
         self.output_activation = nn.Sigmoid()
 
-        # Layer 2 (convolutional), constituent parts
-        self.conv2_filters = torch.nn.Parameter(torch.zeros(64, 4, 7))
-        torch.nn.init.kaiming_uniform_(self.conv2_filters)
-        self.batchnorm2 = nn.BatchNorm1d(64)
-        self.maxpool2 = nn.MaxPool1d(4)
+        # Layer 1 (convolutional), constituent parts
+        self.conv1_filters = torch.nn.Parameter(torch.zeros(64, 4, 7))
+        torch.nn.init.kaiming_uniform_(self.conv1_filters)
+        self.batchnorm1 = nn.BatchNorm1d(64)
+        self.maxpool1 = nn.MaxPool1d(4)
         
         # Layer 3 (convolutional), constituent parts
-        self.conv3_filters = torch.nn.Parameter(torch.zeros(96, 64, 5))
-        torch.nn.init.kaiming_uniform_(self.conv3_filters)
-        self.batchnorm3 = nn.BatchNorm1d(96)
-        self.maxpool3 = nn.MaxPool1d(4)
+        self.conv2_filters = torch.nn.Parameter(torch.zeros(96, 64, 5))
+        torch.nn.init.kaiming_uniform_(self.conv2_filters)
+        self.batchnorm2 = nn.BatchNorm1d(96)
+        self.maxpool2 = nn.MaxPool1d(4)
         
         # Layer 4 (convolutional), constituent parts
-        self.conv4_filters = torch.nn.Parameter(torch.zeros(128, 96, 5))
-        torch.nn.init.kaiming_uniform_(self.conv4_filters)
-        self.batchnorm4 = nn.BatchNorm1d(128)
-        self.maxpool4 = nn.MaxPool1d(2)
+        self.conv3_filters = torch.nn.Parameter(torch.zeros(128, 96, 5))
+        torch.nn.init.kaiming_uniform_(self.conv3_filters)
+        self.batchnorm3 = nn.BatchNorm1d(128)
+        self.maxpool3 = nn.MaxPool1d(2)
         
         # Layer 5 (fully connected), constituent parts
-        self.fc5 = nn.LazyLinear(256, bias=True)
-        self.batchnorm5 = nn.BatchNorm1d(256)
+        self.fc4 = nn.LazyLinear(256, bias=True)
+        self.batchnorm4 = nn.BatchNorm1d(256)
         
         # Output layer (fully connected), constituent parts
-        self.fc7 = nn.LazyLinear(output_dim, bias=True)
+        self.fc5 = nn.LazyLinear(output_dim, bias=True)
     
     def forward(self, x):
         # Layer 1
+        cnn = torch.conv1d(x, self.conv1_filters, stride=1, padding="same")
+        cnn = self.batchnorm1(cnn)
+        cnn = self.activation1(cnn)
+        cnn = self.maxpool1(cnn)
+        cnn = self.dropout1(cnn)
+        
         # Layer 2
-        cnn = torch.conv1d(x, self.conv2_filters, stride=1, padding="same")
+        cnn = torch.conv1d(cnn, self.conv2_filters, stride=1, padding="same")
         cnn = self.batchnorm2(cnn)
         cnn = self.activation(cnn)
         cnn = self.maxpool2(cnn)
@@ -325,21 +332,14 @@ class CNN(nn.Module):
         cnn = self.dropout3(cnn)
         
         # Layer 4
-        cnn = torch.conv1d(cnn, self.conv4_filters, stride=1, padding="same")
+        cnn = self.flatten(cnn)
+        cnn = self.fc4(cnn)
         cnn = self.batchnorm4(cnn)
         cnn = self.activation(cnn)
-        cnn = self.maxpool4(cnn)
         cnn = self.dropout4(cnn)
         
-        # Layer 5
-        cnn = self.flatten(cnn)
-        cnn = self.fc5(cnn)
-        cnn = self.batchnorm5(cnn)
-        cnn = self.activation(cnn)
-        cnn = self.dropout5(cnn)
-        
         # Output layer
-        logits = self.fc7(cnn) 
+        logits = self.fc5(cnn) 
         y_pred = self.output_activation(logits)
         
         return y_pred

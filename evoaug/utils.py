@@ -72,7 +72,6 @@ def calculate_spearmanr(y_true, y_score):
 
 
 
-
 def make_directory(directory):
     """make directory"""
     if not os.path.isdir(directory):
@@ -93,13 +92,30 @@ def configure_optimizer(model, lr=0.001, weight_decay=1e-6, decay_factor=0.1, pa
 
 
 
+def get_fmaps(robust_model, x):
+    """Get first layer feature maps -- must be named -- activation1"""
+    fmaps = []
+    def get_output(the_list):
+        """get output of layer and put it into list the_list"""
+        def hook(model, input, output):
+            the_list.append(output.data);
+        return hook
+
+    robust_model = robust_model.eval().to(torch.device("cpu")) # move back to CPU
+    handle = robust_model.model.activation1.register_forward_hook(get_output(fmaps))
+    with torch.no_grad():
+        robust_model.model(x);
+    handle.remove()
+    return fmaps[0].detach().cpu().numpy().transpose([0,2,1])
+
+
 #------------------------------------------------------------------------
 # Generic Dataloader for pytorch
 #------------------------------------------------------------------------
 
 
 class H5DataModule(pl.LightningDataModule):
-    def __init__(self, data_path, batch_size=128, stage=None, lower_case=False, transpose=False):
+    def __init__(self, data_path, batch_size=128, stage=None, lower_case=False, transpose=False, downsample=None):
         super().__init__()
         self.data_path = data_path
         self.batch_size = batch_size
@@ -116,12 +132,16 @@ class H5DataModule(pl.LightningDataModule):
         if stage == "fit" or stage is None:
             with h5py.File(self.data_path, 'r') as dataset:
                 x_train = np.array(dataset[self.x+"_train"]).astype(np.float32)
+                y_train = np.array(dataset[self.y+"_train"]).astype(np.float32)
                 x_valid = np.array(dataset[self.x+"_valid"]).astype(np.float32)
                 if self.transpose:
                     x_train = np.transpose(x_train, (0,2,1))
                     x_valid = np.transpose(x_valid, (0,2,1))
+                if downsample:
+                    x_train = x_train[:downsample]
+                    y_train = y_train[:downsample]
                 self.x_train = torch.from_numpy(x_train)
-                self.y_train = torch.from_numpy(np.array(dataset[self.y+"_train"]).astype(np.float32))
+                self.y_train = torch.from_numpy(y_train)
                 self.x_valid = torch.from_numpy(x_valid)
                 self.y_valid = torch.from_numpy(np.array(dataset[self.y+"_valid"]).astype(np.float32))
             _, self.A, self.L = self.x_train.shape # N = number of seqs, A = alphabet size (number of nucl.), L = length of seqs
