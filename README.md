@@ -27,6 +27,7 @@ h5py 3.1.0
 pandas 1.3.5
 matplotlib 3.2.2
 logomaker 0.8
+captum 0.5.0
 os
 pathlib 
 ```
