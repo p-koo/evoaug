@@ -13,7 +13,7 @@ For questions, email: koo@cshl.edu
 #### Install:
 
 ```
-pip install git+https://github.com/p-koo/evoaug.git
+pip install evoaug
 ```
 
 #### Dependencies:
