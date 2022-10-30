@@ -1,5 +1,5 @@
-Usage
-=====
+User Guide
+==========
 
 .. _installation:
 
@@ -18,10 +18,13 @@ Example
 .. code-block:: python
 
    from evoaug import evoaug, augment
+   import pytorch_lightning as pl
 
-   model = DEFINE PYTORCH MODEL
-   loss = DEFINE PYTORCH LOSS
-   optimizer_dict    = DEFINE OPTIMIZER OR OPTIMIZER DICT
+   model = "DEFINE PYTORCH MODEL"
+   loss = "DEFINE PYTORCH LOSS"
+   optimizer_dict = "DEFINE OPTIMIZER OR OPTIMIZER DICT"
+   ckpt_aug_path = "path-to-aug-checkpoint.ckpt"
+   ckpt_finetune_path = "path-to-finetune-checkpoint.ckpt"
 
    augment_list = [
       augment.RandomDeletion(delete_min=0, delete_max=20),
@@ -39,15 +42,12 @@ Example
       augment_list=augment_list,
       max_augs_per_seq=2,  # maximum number of augmentations per sequence
       hard_aug=True,  # use max_augs_per_seq, otherwise sample randomly up to max
-      inference_aug=False  # if true, keep augmentations on during inference time
+      inference_aug=False,  # if true, keep augmentations on during inference time
    )
 
    # set up callback
    callback_topmodel = pl.callbacks.ModelCheckpoint(
-      monitor='val_loss',
-      save_top_k=1,
-      dirpath=output_dir,
-      filename=ckpt_aug_path
+      monitor="val_loss", save_top_k=1, dirpath=output_dir, filename=ckpt_aug_path
    )
 
    # train model
@@ -56,7 +56,7 @@ Example
       max_epochs=100,
       auto_select_gpus=True,
       logger=None,
-      callbacks=[ADD CALLBACKS, callback_topmodel]
+      callbacks=["ADD CALLBACKS", "callback_topmodel"],
    )
 
    # pre-train model with augmentations
@@ -67,14 +67,14 @@ Example
 
    # set up fine-tuning
    robust_model.finetune = True
-   robust_model.optimizer = # set up optimizer for fine-tuning
+   robust_model.optimizer = "set up optimizer for fine-tuning"
 
    # set up callback
    callback_topmodel = pl.callbacks.ModelCheckpoint(
-      monitor='val_loss',
+      monitor="val_loss",
       save_top_k=1,
       dirpath=output_dir,
-      filename=ckpt_finetune_path
+      filename=ckpt_finetune_path,
    )
 
    # set up pytorch lightning trainer
@@ -83,7 +83,7 @@ Example
       max_epochs=100,
       auto_select_gpus=True,
       logger=None,
-      callbacks=[ADD CALLBACKS, callback_topmodel]
+      callbacks=["ADD CALLBACKS", "callback_topmodel"],
    )
 
    # fine-tune model
