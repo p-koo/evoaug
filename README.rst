@@ -1,6 +1,12 @@
-# EvoAug
+  _____              _                
+ | ____|_   _____   / \  _   _  __ _  
+ |  _| \ \ / / _ \ / _ \| | | |/ _` | 
+ | |___ \ V / (_) / ___ \ |_| | (_| | 
+ |_____| \_/ \___/_/   \_\__,_|\__, | 
+                               |___/  
 
-This PyTorch package provides a LightningModule to pretrain sequence-based deep learning models for regulatory genomics data with evolution-inspired data augmentations followed by a finetuning on the original, unperturbed sequence data. This is work that directly follows from "Evolution-inspired augmentations improve deep learning for regulatory genomics" by Nicholas Keone Lee, Ziqi (Amber) Tang, Shushan Toneyan, and Peter K Koo.
+
+EvoAug is a PyTorch package to pretrain sequence-based deep learning models for regulatory genomics data with evolution-inspired data augmentations followed by a finetuning on the original, unperturbed sequence data. This work uses PyTorch Lightning -- LightningModule -- to define a model wrapper that is used for training. This is work that directly follows from "Evolution-inspired augmentations improve deep learning for regulatory genomics" by Nicholas Keone Lee, Ziqi (Amber) Tang, Shushan Toneyan, and Peter K Koo.
 
 For questions, email: koo@cshl.edu
 
