@@ -4,34 +4,33 @@ import numpy as np
 
 
 class RobustModel(LightningModule):
-    """PyTorch Lightning module to specify how augmentation should be applied to a model. 
+    """PyTorch Lightning module to specify how augmentation should be applied to a model.
 
-    :param model: PyTorch model 
-    :type class 
-    :param criterion: PyTorch loss function
-    :type class
-    :param optimizer: PyTorch optimizer as a class or dictionary
-    :type class or dict
-    :param augment_list: List of data augmentations, each a callable class from augment.py, default is empty list -- no augmentations.
-    :type list
-    :param max_augs_per_seq: Maximum number of augmentations to apply to each sequence. Value is superceded by the number of augmentations in augment_list.
-    :type int
-    :param hard_aug: Flag to set a hard number of augmentations, otherwise the number of augmentations is set randomly up to max_augs_per_seq, default is True.
-    :type bool
-    :param finetune: Flag to turn off augmentations during training, default is False.
-    :type bool
-    :param inference_aug: Flag to turn on augmentations during inference, default is False.
-    :type bool
-
-    
+    Parameters
+    ----------
+    model : torch.nn.Module
+        PyTorch model.
+    criterion : callable
+        PyTorch loss function
+    optimizer : torch.optim.Optimizer or dict
+        PyTorch optimizer as a class or dictionary
+    augment_list : list
+        List of data augmentations, each a callable class from augment.py.
+        Default is empty list -- no augmentations.
+    max_augs_per_seq : int
+        Maximum number of augmentations to apply to each sequence. Value is superceded by the number of augmentations in augment_list.
+    hard_aug : bool
+        Flag to set a hard number of augmentations, otherwise the number of augmentations is set randomly up to max_augs_per_seq, default is True.
+    finetune : bool
+        Flag to turn off augmentations during training, default is False.
+    inference_aug : bool
+        Flag to turn on augmentations during inference, default is False.
     """
 
     def __init__(self, model, criterion, optimizer, augment_list=[], max_augs_per_seq=2, hard_aug=True, finetune=False, inference_aug=False):
-        """Creates a RobustModel object.
-        """
         super().__init__()
         self.model = model
-        self.criterion = criterion 
+        self.criterion = criterion
         self.optimizer = optimizer
         self.augment_list = augment_list
         self.max_augs_per_seq = np.minimum(max_augs_per_seq, len(augment_list))
@@ -42,23 +41,17 @@ class RobustModel(LightningModule):
         self.insert_max = augment_max_len(augment_list)
         self.finetune = finetune
 
-
     def forward(self, x):
-        """Standard forward pass.
-        """
+        """Standard forward pass."""
         y_hat = self.model(x)
         return y_hat
-    
 
     def configure_optimizers(self):
-        """Standard optimizer configuration
-        """
+        """Standard optimizer configuration."""
         return self.optimizer
 
-
     def training_step(self, batch, batch_idx):
-        """Training step with augmentations.
-        """
+        """Training step with augmentations."""
         x, y = batch
         if self.finetune: # if finetune, no augmentations
             if self.insert_max:  # if insert_max is larger than 0, then pad each sequence with random DNA
@@ -67,14 +60,13 @@ class RobustModel(LightningModule):
             x = self._apply_augment(x)
         y_hat = self(x)
         loss = self.criterion(y_hat, y)
-        self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True, logger=True)        
+        self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True, logger=True)
         return loss
-    
+
 
     def validation_step(self, batch, batch_idx):
-        """Validation step without (or with) augmentations.
-        """
-        x, y = batch 
+        """Validation step without (or with) augmentations."""
+        x, y = batch
         if self.inference_aug:  # if inference_aug, then apply augmentations during inference
             x = self._apply_augment(x)
         else:
@@ -83,11 +75,10 @@ class RobustModel(LightningModule):
         y_hat = self(x)
         loss = self.criterion(y_hat, y)
         self.log('val_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
-    
+
 
     def test_step(self, batch, batch_idx):
-        """Test step without (or with) augmentations.
-        """
+        """Test step without (or with) augmentations."""
         x, y = batch
         if self.inference_aug: # if inference_aug, then apply augmentations during inference
             x = self._apply_augment(x)
@@ -97,12 +88,11 @@ class RobustModel(LightningModule):
         y_hat = self(x)
         loss = self.criterion(y_hat, y)
         self.log('test_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
-        
+
 
     def predict_step(self, batch, batch_idx):
-        """Prediction step without (or with) augmentations.
-        """
-        x = batch 
+        """Prediction step without (or with) augmentations."""
+        x = batch
         if self.inference_aug: # if inference_aug, then apply augmentations during inference
             x = self._apply_augment(x)
         else:
@@ -112,10 +102,11 @@ class RobustModel(LightningModule):
 
 
     def _sample_aug_combos(self, batch_size):
-        """Set the number of augmentations and randomly select augmentations to apply to each sequence.
+        """Set the number of augmentations and randomly select augmentations to apply
+        to each sequence.
         """
         # determine the number of augmentations per sequence
-        if self.hard_aug:  
+        if self.hard_aug:
             batch_num_aug = self.max_augs_per_seq * np.ones((batch_size,), dtype=int)
         else:
             batch_num_aug = np.random.randint(1, self.max_augs_per_seq + 1, (batch_size,))
@@ -126,9 +117,7 @@ class RobustModel(LightningModule):
 
 
     def _apply_augment(self, x):
-        """Apply augmentations to each sequence in batch, x.
-        """
-
+        """Apply augmentations to each sequence in batch, x."""
         # number of augmentations per sequence
         aug_combos = self._sample_aug_combos(x.shape[0])
 
@@ -149,8 +138,7 @@ class RobustModel(LightningModule):
 
 
     def _pad_end(self, x):
-        """Add random DNA padding of length insert_max to the end of each sequence in batch, x.
-        """
+        """Add random DNA padding of length insert_max to the end of each sequence in batch."""
         N, A, L = x.shape
         a = torch.eye(A)
         p = torch.tensor([1/A for _ in range(A)])
@@ -159,26 +147,23 @@ class RobustModel(LightningModule):
         return x_padded
 
 
-
-
-
 def load_model_from_checkpoint(model, checkpoint_path):
     """Load PyTorch lightning model from checkpoint.
 
-    :param model: PyTorch model 
-    :type class 
+    :param model: PyTorch model
+    :type class
     :param checkpoint_path: path to checkpoint of model weights
     :type str
 
     """
 
-    return model.load_from_checkpoint(checkpoint_path, 
-        model=model.model, 
-        criterion=model.criterion, 
+    return model.load_from_checkpoint(checkpoint_path,
+        model=model.model,
+        criterion=model.criterion,
         optimizer=model.optimizer,
-        augment_list=model.augment_list, 
-        max_augs_per_seq=model.max_augs_per_seq, 
-        hard_aug=model.hard_aug, 
+        augment_list=model.augment_list,
+        max_augs_per_seq=model.max_augs_per_seq,
+        hard_aug=model.hard_aug,
         finetune=model.finetune,
         inference_aug=model.inference_aug
     )
@@ -194,7 +179,7 @@ def augment_max_len(augment_list):
     which will be applied to pad other sequences with random DNA.
 
     :param augment_list: List of augmentations
-    :type list 
+    :type list
 
     """
     insert_max = 0
@@ -202,4 +187,3 @@ def augment_max_len(augment_list):
         if hasattr(augment, 'insert_max'):
             insert_max = augment.insert_max
     return insert_max
-
