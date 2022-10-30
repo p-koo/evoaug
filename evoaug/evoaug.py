@@ -1,3 +1,8 @@
+"""
+Model (implemented in Pytorch Lightning) demonstrating how to use augmentations
+during training.
+"""
+
 import torch
 from pytorch_lightning.core.lightning import LightningModule
 import numpy as np
@@ -150,13 +155,18 @@ class RobustModel(LightningModule):
 def load_model_from_checkpoint(model, checkpoint_path):
     """Load PyTorch lightning model from checkpoint.
 
-    :param model: PyTorch model
-    :type class
-    :param checkpoint_path: path to checkpoint of model weights
-    :type str
+    Parameters
+    ----------
+    model : RobustModel
+        RobustModel instance.
+    checkpoint_path : str
+        path to checkpoint of model weights
 
+    Returns
+    -------
+    RobustModel
+        Object with weights and config loaded from checkpoint.
     """
-
     return model.load_from_checkpoint(checkpoint_path,
         model=model.model,
         criterion=model.criterion,
@@ -178,9 +188,15 @@ def augment_max_len(augment_list):
     """Determine whether insertions are applied to determine the insert_max,
     which will be applied to pad other sequences with random DNA.
 
-    :param augment_list: List of augmentations
-    :type list
+    Parameters
+    ----------
+    augment_list : list
+        List of augmentations.
 
+    Returns
+    -------
+    int
+        Value for insert max.
     """
     insert_max = 0
     for augment in augment_list:
