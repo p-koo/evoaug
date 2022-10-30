@@ -317,7 +317,7 @@ class RandomRC(AugmentBase):
 
     Parameters
     ----------
-    rc_prob :, float, optional
+    rc_prob : float, optional
         Probability to apply a reverse-complement transformation, defaults to 0.5.
     """
     def __init__(self, rc_prob=0.5):
