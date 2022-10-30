@@ -16,12 +16,15 @@ For questions, email: koo@cshl.edu
 pip install evoaug
 ```
 
+
 #### Dependencies:
+
 ```
 torch 1.12.1+cu113
 pytorch_lightning 1.7.7
 numpy 1.21.6
 ```
+
 
 #### Example
 
