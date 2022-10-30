@@ -16,7 +16,7 @@ For questions, email: koo@cshl.edu
 pip install git+https://github.com/p-koo/evoaug.git
 ```
 
-Dependencies:
+#### Dependencies:
 ```
 torch 1.12.1+cu113
 pytorch_lightning 1.7.7
