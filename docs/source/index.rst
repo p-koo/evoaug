@@ -5,8 +5,8 @@ Welcome to EvoAug's documentation!
 models on regulatory genomics data with evolution-inspired
 data augmentations.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+Check out the :doc:`usage` for further information, including
+how to install the project.
 
 .. note::
 
