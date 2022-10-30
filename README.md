@@ -21,13 +21,5 @@ Dependencies:
 ```
 torch 1.12.1+cu113
 pytorch_lightning 1.7.7
-sklearn 1.0.2
-scipy 1.7.3
-h5py 3.1.0
-pandas 1.3.5
-matplotlib 3.2.2
-logomaker 0.8
-captum 0.5.0
-os
-pathlib 
+numpy 1.21.6
 ```
