@@ -6,7 +6,6 @@ class Augment():
         raise NotImplementedError()
 
 
-
 class RandomDeletion(Augment):
     """augment batch of sequences x by deleteing a stretch of nucleotides
         of length between delete_min and delete_max randomly chosen
@@ -182,8 +181,6 @@ class RandomRC(Augment):
         ind_rc = torch.rand(x_aug.shape[0]) < self.rc_prob
         x_aug[ind_rc] = torch.flip(x_aug[ind_rc], dims=[1,2])
         return x_aug
-
-
 
 
 
