@@ -99,7 +99,7 @@ Classes
    :param insert_max: Maximum size for random insertion, defaults to 20
    :type insert_max: int, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly inserts segments of random DNA to a set of DNA sequences.
 

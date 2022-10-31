@@ -118,7 +118,7 @@ class RandomInsertion(AugmentBase):
         self.insert_min = insert_min
         self.insert_max = insert_max
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly inserts segments of random DNA to a set of DNA sequences.
 
         Parameters
