@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>evoaug.evoaug &mdash; EvoAug 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> EvoAug
+          </a>
+              <div class="version">
+                0.1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EvoAug</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">evoaug.evoaug</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/evoaug/evoaug/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-evoaug.evoaug">
+<span id="evoaug-evoaug"></span><h1><a class="reference internal" href="#module-evoaug.evoaug" title="evoaug.evoaug"><code class="xref py py-mod docutils literal notranslate"><span class="pre">evoaug.evoaug</span></code></a><a class="headerlink" href="#module-evoaug.evoaug" title="Permalink to this heading"></a></h1>
+<p>Model (implemented in Pytorch Lightning) demonstrating how to use augmentations
+during training.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.evoaug.RobustModel" title="evoaug.evoaug.RobustModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RobustModel</span></code></a></p></td>
+<td><p>PyTorch Lightning module to specify how augmentation should be applied to a model.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.evoaug.load_model_from_checkpoint" title="evoaug.evoaug.load_model_from_checkpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_model_from_checkpoint</span></code></a>(model, checkpoint_path)</p></td>
+<td><p>Load PyTorch lightning model from checkpoint.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#evoaug.evoaug.augment_max_len" title="evoaug.evoaug.augment_max_len"><code class="xref py py-obj docutils literal notranslate"><span class="pre">augment_max_len</span></code></a>(augment_list)</p></td>
+<td><p>Determine whether insertions are applied to determine the insert_max,</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.evoaug.</span></span><span class="sig-name descname"><span class="pre">RobustModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augment_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_augs_per_seq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_aug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finetune</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference_aug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">pytorch_lightning.core.lightning.LightningModule</span></code></p>
+<p>PyTorch Lightning module to specify how augmentation should be applied to a model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v1.13)"><em>torch.nn.Module</em></a>) – PyTorch model.</p></li>
+<li><p><strong>criterion</strong> (<em>callable</em>) – PyTorch loss function</p></li>
+<li><p><strong>optimizer</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/optim.html#torch.optim.Optimizer" title="(in PyTorch v1.13)"><em>torch.optim.Optimizer</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – PyTorch optimizer as a class or dictionary</p></li>
+<li><p><strong>augment_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of data augmentations, each a callable class from augment.py.
+Default is empty list – no augmentations.</p></li>
+<li><p><strong>max_augs_per_seq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Maximum number of augmentations to apply to each sequence. Value is superceded by the number of augmentations in augment_list.</p></li>
+<li><p><strong>hard_aug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Flag to set a hard number of augmentations, otherwise the number of augmentations is set randomly up to max_augs_per_seq, default is True.</p></li>
+<li><p><strong>finetune</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Flag to turn off augmentations during training, default is False.</p></li>
+<li><p><strong>inference_aug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Flag to turn on augmentations during inference, default is False.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Standard forward pass.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.configure_optimizers" title="Permalink to this definition"></a></dt>
+<dd><p>Standard optimizer configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.training_step" title="Permalink to this definition"></a></dt>
+<dd><p>Training step with augmentations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.validation_step" title="Permalink to this definition"></a></dt>
+<dd><p>Validation step without (or with) augmentations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.test_step">
+<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.test_step" title="Permalink to this definition"></a></dt>
+<dd><p>Test step without (or with) augmentations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel.predict_step">
+<span class="sig-name descname"><span class="pre">predict_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel.predict_step" title="Permalink to this definition"></a></dt>
+<dd><p>Prediction step without (or with) augmentations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel._sample_aug_combos">
+<span class="sig-name descname"><span class="pre">_sample_aug_combos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel._sample_aug_combos" title="Permalink to this definition"></a></dt>
+<dd><p>Set the number of augmentations and randomly select augmentations to apply
+to each sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel._apply_augment">
+<span class="sig-name descname"><span class="pre">_apply_augment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel._apply_augment" title="Permalink to this definition"></a></dt>
+<dd><p>Apply augmentations to each sequence in batch, x.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.evoaug.RobustModel._pad_end">
+<span class="sig-name descname"><span class="pre">_pad_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.RobustModel._pad_end" title="Permalink to this definition"></a></dt>
+<dd><p>Add random DNA padding of length insert_max to the end of each sequence in batch.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="evoaug.evoaug.load_model_from_checkpoint">
+<span class="sig-prename descclassname"><span class="pre">evoaug.evoaug.</span></span><span class="sig-name descname"><span class="pre">load_model_from_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.load_model_from_checkpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Load PyTorch lightning model from checkpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#evoaug.evoaug.RobustModel" title="evoaug.evoaug.RobustModel"><em>RobustModel</em></a>) – RobustModel instance.</p></li>
+<li><p><strong>checkpoint_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – path to checkpoint of model weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Object with weights and config loaded from checkpoint.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#evoaug.evoaug.RobustModel" title="evoaug.evoaug.RobustModel">RobustModel</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="evoaug.evoaug.augment_max_len">
+<span class="sig-prename descclassname"><span class="pre">evoaug.evoaug.</span></span><span class="sig-name descname"><span class="pre">augment_max_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">augment_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.evoaug.augment_max_len" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether insertions are applied to determine the insert_max,
+which will be applied to pad other sequences with random DNA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>augment_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of augmentations.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value for insert max.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, KooLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

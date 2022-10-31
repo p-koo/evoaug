@@ -1,0 +1,235 @@
+:py:mod:`evoaug.augment`
+========================
+
+.. py:module:: evoaug.augment
+
+.. autoapi-nested-parse::
+
+   Library of data augmentations for genomic sequence data.
+
+   To contribute a custom augmentation, use the following syntax:
+
+   .. code-block:: python
+
+       class CustomAugmentation(AugmentBase):
+           def __init__(self, param1, param2):
+               self.param1 = param1
+               self.param2 = param2
+
+           def __call__(self, x: torch.Tensor) -> torch.Tensor:
+               # Perform augmentation
+               return x_aug
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   evoaug.augment.AugmentBase
+   evoaug.augment.RandomDeletion
+   evoaug.augment.RandomInsertion
+   evoaug.augment.RandomTranslocation
+   evoaug.augment.RandomInversion
+   evoaug.augment.RandomMutation
+   evoaug.augment.RandomRC
+   evoaug.augment.RandomNoise
+
+
+
+
+.. py:class:: AugmentBase
+
+   Base class for EvoAug augmentations for genomic sequences.
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+      :abstractmethod:
+
+      Return an augmented version of `x`.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Batch of one-hot sequences with random augmentation applied.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomDeletion(delete_min=0, delete_max=30)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly deletes a contiguous stretch of nucleotides from sequences in a training
+   batch according to a random number between a user-defined delete_min and delete_max.
+   A different deletion is applied to each sequence.
+
+   :param delete_min: Minimum size for random deletion (defaults to 0).
+   :type delete_min: int, optional
+   :param delete_max: Maximum size for random deletion (defaults to 30).
+   :type delete_max: int, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly delete segments in a set of one-hot DNA sequences.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with randomly deleted segments (padded to correct shape
+                with random DNA)
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomInsertion(insert_min=0, insert_max=30)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly inserts a contiguous stretch of nucleotides from sequences in a training
+   batch according to a random number between a user-defined insert_min and insert_max.
+   A different insertions is applied to each sequence. Each sequence is padded with random
+   DNA to ensure same shapes.
+
+   :param insert_min: Minimum size for random insertion, defaults to 0
+   :type insert_min: int, optional
+   :param insert_max: Maximum size for random insertion, defaults to 30
+   :type insert_max: int, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly inserts segments of random DNA to a set of DNA sequences.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with randomly inserts segments of random DNA. All sequences
+                are padded with random DNA to ensure same shape.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomTranslocation(shift_min=0, shift_max=30)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly cuts sequence in two pieces and shifts the order for each in a training
+   batch. This is implemented with a roll transformation with a user-defined shift_min
+   and shift_max. A different roll (positive or negative) is applied to each sequence.
+   Each sequence is padded with random DNA to ensure same shapes.
+
+   :param shift_min: Minimum size for random shift, defaults to 0.
+   :type shift_min: int, optional
+   :param shift_max: Maximum size for random shift, defaults to 30.
+   :type shift_max: int, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly shifts sequences in a batch, x.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with random translocations.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomInversion(invert_min=0, invert_max=30)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly inverts a contiguous stretch of nucleotides from sequences in a training
+   batch according to a user-defined invert_min and invert_max. A different insertions
+   is applied to each sequence. Each sequence is padded with random DNA to ensure same
+   shapes.
+
+   :param invert_min: Minimum size for random insertion, defaults to 0.
+   :type invert_min: int, optional
+   :param invert_max: Maximum size for random insertion, defaults to 30.
+   :type invert_max: int, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly inverts segments of random DNA to a set of one-hot DNA sequences.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with randomly inverted segments of random DNA.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomMutation(mutate_frac=0.1)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly mutates sequences in a training batch according to a user-defined
+   mutate_frac. A different set of mutations is applied to each sequence.
+
+   :param mutate_frac: Probability of mutation for each nucleotide, defaults to 0.1.
+   :type mutate_frac: float, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly introduces mutations to a set of one-hot DNA sequences.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with randomly mutated DNA.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomRC(rc_prob=0.5)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly applies a reverse-complement transformation to each sequence in a training
+   batch according to a user-defined probability, rc_prob. This is applied to each sequence
+   independently.
+
+   :param rc_prob: Probability to apply a reverse-complement transformation, defaults to 0.5.
+   :type rc_prob: float, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly transforms sequences in a batch with a reverse-complement transformation.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with random reverse-complements applied.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: RandomNoise(noise_mean=0.0, noise_std=0.2)
+
+   Bases: :py:obj:`AugmentBase`
+
+   Randomly add Gaussian noise to a batch of sequences with according to a user-defined
+   noise_mean and noise_std. A different set of noise is applied to each sequence.
+
+   :param noise_mean: Bias of the noise -- mean of Gaussian, defaults to 0.0.
+   :type noise_mean: float, optional
+   :param noise_std: Standard deviation of Gaussian, defaults to 0.2.
+   :type noise_std: float, optional
+
+   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+
+      Randomly adds Gaussian noise to a set of one-hot DNA sequences.
+
+      :param x: Batch of one-hot sequences (shape: (N, A, L)).
+      :type x: torch.Tensor
+
+      :returns: Sequences with random noise.
+      :rtype: torch.Tensor
+
+
+

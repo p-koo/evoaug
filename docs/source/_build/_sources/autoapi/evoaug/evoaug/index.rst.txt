@@ -1,0 +1,130 @@
+:py:mod:`evoaug.evoaug`
+=======================
+
+.. py:module:: evoaug.evoaug
+
+.. autoapi-nested-parse::
+
+   Model (implemented in Pytorch Lightning) demonstrating how to use augmentations
+   during training.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   evoaug.evoaug.RobustModel
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   evoaug.evoaug.load_model_from_checkpoint
+   evoaug.evoaug.augment_max_len
+
+
+
+.. py:class:: RobustModel(model, criterion, optimizer, augment_list=None, max_augs_per_seq=2, hard_aug=True, finetune=False, inference_aug=False)
+
+   Bases: :py:obj:`pytorch_lightning.core.lightning.LightningModule`
+
+   PyTorch Lightning module to specify how augmentation should be applied to a model.
+
+   :param model: PyTorch model.
+   :type model: torch.nn.Module
+   :param criterion: PyTorch loss function
+   :type criterion: callable
+   :param optimizer: PyTorch optimizer as a class or dictionary
+   :type optimizer: torch.optim.Optimizer or dict
+   :param augment_list: List of data augmentations, each a callable class from augment.py.
+                        Default is empty list -- no augmentations.
+   :type augment_list: list
+   :param max_augs_per_seq: Maximum number of augmentations to apply to each sequence. Value is superceded by the number of augmentations in augment_list.
+   :type max_augs_per_seq: int
+   :param hard_aug: Flag to set a hard number of augmentations, otherwise the number of augmentations is set randomly up to max_augs_per_seq, default is True.
+   :type hard_aug: bool
+   :param finetune: Flag to turn off augmentations during training, default is False.
+   :type finetune: bool
+   :param inference_aug: Flag to turn on augmentations during inference, default is False.
+   :type inference_aug: bool
+
+   .. py:method:: forward(x)
+
+      Standard forward pass.
+
+
+   .. py:method:: configure_optimizers()
+
+      Standard optimizer configuration.
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Training step with augmentations.
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Validation step without (or with) augmentations.
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Test step without (or with) augmentations.
+
+
+   .. py:method:: predict_step(batch, batch_idx)
+
+      Prediction step without (or with) augmentations.
+
+
+   .. py:method:: _sample_aug_combos(batch_size)
+
+      Set the number of augmentations and randomly select augmentations to apply
+      to each sequence.
+
+
+   .. py:method:: _apply_augment(x)
+
+      Apply augmentations to each sequence in batch, x.
+
+
+   .. py:method:: _pad_end(x)
+
+      Add random DNA padding of length insert_max to the end of each sequence in batch.
+
+
+
+.. py:function:: load_model_from_checkpoint(model, checkpoint_path)
+
+   Load PyTorch lightning model from checkpoint.
+
+   :param model: RobustModel instance.
+   :type model: RobustModel
+   :param checkpoint_path: path to checkpoint of model weights
+   :type checkpoint_path: str
+
+   :returns: Object with weights and config loaded from checkpoint.
+   :rtype: RobustModel
+
+
+.. py:function:: augment_max_len(augment_list)
+
+   Determine whether insertions are applied to determine the insert_max,
+   which will be applied to pad other sequences with random DNA.
+
+   :param augment_list: List of augmentations.
+   :type augment_list: list
+
+   :returns: Value for insert max.
+   :rtype: int
+
+

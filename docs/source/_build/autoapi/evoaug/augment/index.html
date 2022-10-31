@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>evoaug.augment &mdash; EvoAug 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> EvoAug
+          </a>
+              <div class="version">
+                0.1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EvoAug</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">evoaug.augment</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/evoaug/augment/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-evoaug.augment">
+<span id="evoaug-augment"></span><h1><a class="reference internal" href="#module-evoaug.augment" title="evoaug.augment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">evoaug.augment</span></code></a><a class="headerlink" href="#module-evoaug.augment" title="Permalink to this heading"></a></h1>
+<p>Library of data augmentations for genomic sequence data.</p>
+<p>To contribute a custom augmentation, use the following syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomAugmentation</span><span class="p">(</span><span class="n">AugmentBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param1</span> <span class="o">=</span> <span class="n">param1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param2</span> <span class="o">=</span> <span class="n">param2</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># Perform augmentation</span>
+        <span class="k">return</span> <span class="n">x_aug</span>
+</pre></div>
+</div>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p></td>
+<td><p>Base class for EvoAug augmentations for genomic sequences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#evoaug.augment.RandomDeletion" title="evoaug.augment.RandomDeletion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomDeletion</span></code></a></p></td>
+<td><p>Randomly deletes a contiguous stretch of nucleotides from sequences in a training</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.augment.RandomInsertion" title="evoaug.augment.RandomInsertion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomInsertion</span></code></a></p></td>
+<td><p>Randomly inserts a contiguous stretch of nucleotides from sequences in a training</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#evoaug.augment.RandomTranslocation" title="evoaug.augment.RandomTranslocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomTranslocation</span></code></a></p></td>
+<td><p>Randomly cuts sequence in two pieces and shifts the order for each in a training</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.augment.RandomInversion" title="evoaug.augment.RandomInversion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomInversion</span></code></a></p></td>
+<td><p>Randomly inverts a contiguous stretch of nucleotides from sequences in a training</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#evoaug.augment.RandomMutation" title="evoaug.augment.RandomMutation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomMutation</span></code></a></p></td>
+<td><p>Randomly mutates sequences in a training batch according to a user-defined</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#evoaug.augment.RandomRC" title="evoaug.augment.RandomRC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomRC</span></code></a></p></td>
+<td><p>Randomly applies a reverse-complement transformation to each sequence in a training</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#evoaug.augment.RandomNoise" title="evoaug.augment.RandomNoise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomNoise</span></code></a></p></td>
+<td><p>Randomly add Gaussian noise to a batch of sequences with according to a user-defined</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.AugmentBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">AugmentBase</span></span><a class="headerlink" href="#evoaug.augment.AugmentBase" title="Permalink to this definition"></a></dt>
+<dd><p>Base class for EvoAug augmentations for genomic sequences.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.AugmentBase.__call__">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.AugmentBase.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Return an augmented version of <cite>x</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Batch of one-hot sequences with random augmentation applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomDeletion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomDeletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomDeletion" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly deletes a contiguous stretch of nucleotides from sequences in a training
+batch according to a random number between a user-defined delete_min and delete_max.
+A different deletion is applied to each sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delete_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random deletion (defaults to 0).</p></li>
+<li><p><strong>delete_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random deletion (defaults to 30).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomDeletion.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomDeletion.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly delete segments in a set of one-hot DNA sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with randomly deleted segments (padded to correct shape
+with random DNA)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomInsertion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInsertion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInsertion" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly inserts a contiguous stretch of nucleotides from sequences in a training
+batch according to a random number between a user-defined insert_min and insert_max.
+A different insertions is applied to each sequence. Each sequence is padded with random
+DNA to ensure same shapes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>insert_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random insertion, defaults to 0</p></li>
+<li><p><strong>insert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 30</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomInsertion.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomInsertion.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly inserts segments of random DNA to a set of DNA sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with randomly inserts segments of random DNA. All sequences
+are padded with random DNA to ensure same shape.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomTranslocation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomTranslocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomTranslocation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly cuts sequence in two pieces and shifts the order for each in a training
+batch. This is implemented with a roll transformation with a user-defined shift_min
+and shift_max. A different roll (positive or negative) is applied to each sequence.
+Each sequence is padded with random DNA to ensure same shapes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shift_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random shift, defaults to 0.</p></li>
+<li><p><strong>shift_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random shift, defaults to 30.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomTranslocation.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomTranslocation.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly shifts sequences in a batch, x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with random translocations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomInversion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInversion" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly inverts a contiguous stretch of nucleotides from sequences in a training
+batch according to a user-defined invert_min and invert_max. A different insertions
+is applied to each sequence. Each sequence is padded with random DNA to ensure same
+shapes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>invert_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random insertion, defaults to 0.</p></li>
+<li><p><strong>invert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 30.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomInversion.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomInversion.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly inverts segments of random DNA to a set of one-hot DNA sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with randomly inverted segments of random DNA.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomMutation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomMutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutate_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomMutation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly mutates sequences in a training batch according to a user-defined
+mutate_frac. A different set of mutations is applied to each sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mutate_frac</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Probability of mutation for each nucleotide, defaults to 0.1.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomMutation.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomMutation.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly introduces mutations to a set of one-hot DNA sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with randomly mutated DNA.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomRC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomRC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rc_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomRC" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly applies a reverse-complement transformation to each sequence in a training
+batch according to a user-defined probability, rc_prob. This is applied to each sequence
+independently.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rc_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Probability to apply a reverse-complement transformation, defaults to 0.5.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomRC.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomRC.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly transforms sequences in a batch with a reverse-complement transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with random reverse-complements applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="evoaug.augment.RandomNoise">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noise_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomNoise" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
+<p>Randomly add Gaussian noise to a batch of sequences with according to a user-defined
+noise_mean and noise_std. A different set of noise is applied to each sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>noise_mean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Bias of the noise – mean of Gaussian, defaults to 0.0.</p></li>
+<li><p><strong>noise_std</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Standard deviation of Gaussian, defaults to 0.2.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="evoaug.augment.RandomNoise.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomNoise.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly adds Gaussian noise to a set of one-hot DNA sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><em>torch.Tensor</em></a>) – Batch of one-hot sequences (shape: (N, A, L)).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequences with random noise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, KooLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
