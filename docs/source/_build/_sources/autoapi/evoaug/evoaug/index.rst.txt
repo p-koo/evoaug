@@ -102,6 +102,16 @@ Functions
       Add random DNA padding of length insert_max to the end of each sequence in batch.
 
 
+   .. py:method:: finetune_mode(optimizer=None)
+
+      Turn on finetune flag -- no augmentations during training
+
+
+   .. py:method:: augment_mode()
+
+      Turn off finetune flag -- no augmentations during training
+
+
 
 .. py:function:: load_model_from_checkpoint(model, checkpoint_path)
 

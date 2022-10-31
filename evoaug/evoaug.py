@@ -32,12 +32,12 @@ class RobustModel(LightningModule):
         Flag to turn on augmentations during inference, default is False.
     """
 
-    def __init__(self, model, criterion, optimizer, augment_list=None, max_augs_per_seq=2, hard_aug=True, finetune=False, inference_aug=False):
+    def __init__(self, model, criterion, optimizer, augment_list=[], max_augs_per_seq=0, hard_aug=True, finetune=False, inference_aug=False):
         super().__init__()
         self.model = model
         self.criterion = criterion
         self.optimizer = optimizer
-        self.augment_list = augment_list or []
+        self.augment_list = augment_list 
         self.max_augs_per_seq = np.minimum(max_augs_per_seq, len(augment_list))
         self.hard_aug = hard_aug
         self.inference_aug = inference_aug
@@ -158,10 +158,6 @@ class RobustModel(LightningModule):
         if optimizer != None:
             self.optimizer = optimizer
 
-
-    def augment_mode(self):
-        """Turn off finetune flag -- no augmentations during training"""
-        self.finetune = False
 
 
 
