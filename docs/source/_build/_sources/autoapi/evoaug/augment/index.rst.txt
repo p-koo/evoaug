@@ -46,7 +46,7 @@ Classes
 
    Base class for EvoAug augmentations for genomic sequences.
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
       :abstractmethod:
 
       Return an augmented version of `x`.
@@ -59,7 +59,7 @@ Classes
 
 
 
-.. py:class:: RandomDeletion(delete_min=0, delete_max=30)
+.. py:class:: RandomDeletion(delete_min=0, delete_max=20)
 
    Bases: :py:obj:`AugmentBase`
 
@@ -69,10 +69,10 @@ Classes
 
    :param delete_min: Minimum size for random deletion (defaults to 0).
    :type delete_min: int, optional
-   :param delete_max: Maximum size for random deletion (defaults to 30).
+   :param delete_max: Maximum size for random deletion (defaults to 20).
    :type delete_max: int, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly delete segments in a set of one-hot DNA sequences.
 
@@ -85,7 +85,7 @@ Classes
 
 
 
-.. py:class:: RandomInsertion(insert_min=0, insert_max=30)
+.. py:class:: RandomInsertion(insert_min=0, insert_max=20)
 
    Bases: :py:obj:`AugmentBase`
 
@@ -96,7 +96,7 @@ Classes
 
    :param insert_min: Minimum size for random insertion, defaults to 0
    :type insert_min: int, optional
-   :param insert_max: Maximum size for random insertion, defaults to 30
+   :param insert_max: Maximum size for random insertion, defaults to 20
    :type insert_max: int, optional
 
    .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
@@ -112,7 +112,7 @@ Classes
 
 
 
-.. py:class:: RandomTranslocation(shift_min=0, shift_max=30)
+.. py:class:: RandomTranslocation(shift_min=0, shift_max=20)
 
    Bases: :py:obj:`AugmentBase`
 
@@ -123,10 +123,10 @@ Classes
 
    :param shift_min: Minimum size for random shift, defaults to 0.
    :type shift_min: int, optional
-   :param shift_max: Maximum size for random shift, defaults to 30.
+   :param shift_max: Maximum size for random shift, defaults to 20.
    :type shift_max: int, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly shifts sequences in a batch, x.
 
@@ -138,7 +138,7 @@ Classes
 
 
 
-.. py:class:: RandomInversion(invert_min=0, invert_max=30)
+.. py:class:: RandomInversion(invert_min=0, invert_max=20)
 
    Bases: :py:obj:`AugmentBase`
 
@@ -149,10 +149,10 @@ Classes
 
    :param invert_min: Minimum size for random insertion, defaults to 0.
    :type invert_min: int, optional
-   :param invert_max: Maximum size for random insertion, defaults to 30.
+   :param invert_max: Maximum size for random insertion, defaults to 20.
    :type invert_max: int, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly inverts segments of random DNA to a set of one-hot DNA sequences.
 
@@ -164,17 +164,17 @@ Classes
 
 
 
-.. py:class:: RandomMutation(mutate_frac=0.1)
+.. py:class:: RandomMutation(mutate_frac=0.05)
 
    Bases: :py:obj:`AugmentBase`
 
    Randomly mutates sequences in a training batch according to a user-defined
    mutate_frac. A different set of mutations is applied to each sequence.
 
-   :param mutate_frac: Probability of mutation for each nucleotide, defaults to 0.1.
+   :param mutate_frac: Probability of mutation for each nucleotide, defaults to 0.05.
    :type mutate_frac: float, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly introduces mutations to a set of one-hot DNA sequences.
 
@@ -197,7 +197,7 @@ Classes
    :param rc_prob: Probability to apply a reverse-complement transformation, defaults to 0.5.
    :type rc_prob: float, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly transforms sequences in a batch with a reverse-complement transformation.
 
@@ -216,12 +216,12 @@ Classes
    Randomly add Gaussian noise to a batch of sequences with according to a user-defined
    noise_mean and noise_std. A different set of noise is applied to each sequence.
 
-   :param noise_mean: Bias of the noise -- mean of Gaussian, defaults to 0.0.
+   :param noise_mean: Mean of the Gaussian noise, defaults to 0.0.
    :type noise_mean: float, optional
-   :param noise_std: Standard deviation of Gaussian, defaults to 0.2.
+   :param noise_std: Standard deviation of the Gaussian noise, defaults to 0.2.
    :type noise_std: float, optional
 
-   .. py:method:: __call__(x: torch.Tensor) -> torch.Tensor
+   .. py:method:: __call__(x)
 
       Randomly adds Gaussian noise to a set of one-hot DNA sequences.
 

@@ -125,7 +125,7 @@
 <dd><p>Base class for EvoAug augmentations for genomic sequences.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.AugmentBase.__call__">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.AugmentBase.__call__" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.AugmentBase.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Return an augmented version of <cite>x</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -144,7 +144,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="evoaug.augment.RandomDeletion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomDeletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomDeletion" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomDeletion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomDeletion" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
 <p>Randomly deletes a contiguous stretch of nucleotides from sequences in a training
 batch according to a random number between a user-defined delete_min and delete_max.
@@ -153,13 +153,13 @@ A different deletion is applied to each sequence.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>delete_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random deletion (defaults to 0).</p></li>
-<li><p><strong>delete_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random deletion (defaults to 30).</p></li>
+<li><p><strong>delete_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random deletion (defaults to 20).</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomDeletion.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomDeletion.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomDeletion.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly delete segments in a set of one-hot DNA sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -179,7 +179,7 @@ with random DNA)</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="evoaug.augment.RandomInsertion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInsertion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInsertion" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInsertion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInsertion" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
 <p>Randomly inserts a contiguous stretch of nucleotides from sequences in a training
 batch according to a random number between a user-defined insert_min and insert_max.
@@ -189,7 +189,7 @@ DNA to ensure same shapes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>insert_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random insertion, defaults to 0</p></li>
-<li><p><strong>insert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 30</p></li>
+<li><p><strong>insert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 20</p></li>
 </ul>
 </dd>
 </dl>
@@ -215,7 +215,7 @@ are padded with random DNA to ensure same shape.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="evoaug.augment.RandomTranslocation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomTranslocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomTranslocation" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomTranslocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomTranslocation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
 <p>Randomly cuts sequence in two pieces and shifts the order for each in a training
 batch. This is implemented with a roll transformation with a user-defined shift_min
@@ -225,13 +225,13 @@ Each sequence is padded with random DNA to ensure same shapes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shift_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random shift, defaults to 0.</p></li>
-<li><p><strong>shift_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random shift, defaults to 30.</p></li>
+<li><p><strong>shift_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random shift, defaults to 20.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomTranslocation.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomTranslocation.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomTranslocation.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly shifts sequences in a batch, x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -250,7 +250,7 @@ Each sequence is padded with random DNA to ensure same shapes.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="evoaug.augment.RandomInversion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInversion" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomInversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invert_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInversion" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
 <p>Randomly inverts a contiguous stretch of nucleotides from sequences in a training
 batch according to a user-defined invert_min and invert_max. A different insertions
@@ -260,13 +260,13 @@ shapes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>invert_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum size for random insertion, defaults to 0.</p></li>
-<li><p><strong>invert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 30.</p></li>
+<li><p><strong>invert_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size for random insertion, defaults to 20.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomInversion.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomInversion.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomInversion.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly inverts segments of random DNA to a set of one-hot DNA sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -285,18 +285,18 @@ shapes.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="evoaug.augment.RandomMutation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomMutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutate_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomMutation" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">evoaug.augment.</span></span><span class="sig-name descname"><span class="pre">RandomMutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutate_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomMutation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#evoaug.augment.AugmentBase" title="evoaug.augment.AugmentBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentBase</span></code></a></p>
 <p>Randomly mutates sequences in a training batch according to a user-defined
 mutate_frac. A different set of mutations is applied to each sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>mutate_frac</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Probability of mutation for each nucleotide, defaults to 0.1.</p>
+<dd class="field-odd"><p><strong>mutate_frac</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Probability of mutation for each nucleotide, defaults to 0.05.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomMutation.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomMutation.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomMutation.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly introduces mutations to a set of one-hot DNA sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -327,7 +327,7 @@ independently.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomRC.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomRC.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomRC.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly transforms sequences in a batch with a reverse-complement transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -353,14 +353,14 @@ noise_mean and noise_std. A different set of noise is applied to each sequence.<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>noise_mean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Bias of the noise – mean of Gaussian, defaults to 0.0.</p></li>
-<li><p><strong>noise_std</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Standard deviation of Gaussian, defaults to 0.2.</p></li>
+<li><p><strong>noise_mean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Mean of the Gaussian noise, defaults to 0.0.</p></li>
+<li><p><strong>noise_std</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Standard deviation of the Gaussian noise, defaults to 0.2.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="evoaug.augment.RandomNoise.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#evoaug.augment.RandomNoise.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#evoaug.augment.RandomNoise.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly adds Gaussian noise to a set of one-hot DNA sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

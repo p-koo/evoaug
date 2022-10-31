@@ -23,7 +23,7 @@ class AugmentBase:
     """
     Base class for EvoAug augmentations for genomic sequences.
     """
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Return an augmented version of `x`.
 
         Parameters
@@ -49,13 +49,13 @@ class RandomDeletion(AugmentBase):
     delete_min : int, optional
         Minimum size for random deletion (defaults to 0).
     delete_max : int, optional
-        Maximum size for random deletion (defaults to 30).
+        Maximum size for random deletion (defaults to 20).
     """
-    def __init__(self, delete_min=0, delete_max=30):
+    def __init__(self, delete_min=0, delete_max=20):
         self.delete_min = delete_min
         self.delete_max = delete_max
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly delete segments in a set of one-hot DNA sequences.
 
         Parameters
@@ -112,9 +112,9 @@ class RandomInsertion(AugmentBase):
     insert_min : int, optional
         Minimum size for random insertion, defaults to 0
     insert_max : int, optional
-        Maximum size for random insertion, defaults to 30
+        Maximum size for random insertion, defaults to 20
     """
-    def __init__(self, insert_min=0, insert_max=30):
+    def __init__(self, insert_min=0, insert_max=20):
         self.insert_min = insert_min
         self.insert_max = insert_max
 
@@ -176,13 +176,13 @@ class RandomTranslocation(AugmentBase):
     shift_min : int, optional
         Minimum size for random shift, defaults to 0.
     shift_max : int, optional
-        Maximum size for random shift, defaults to 30.
+        Maximum size for random shift, defaults to 20.
     """
-    def __init__(self, shift_min=0, shift_max=30):
+    def __init__(self, shift_min=0, shift_max=20):
         self.shift_min = shift_min
         self.shift_max = shift_max
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly shifts sequences in a batch, x.
 
         Parameters
@@ -224,13 +224,13 @@ class RandomInversion(AugmentBase):
     invert_min : int, optional
         Minimum size for random insertion, defaults to 0.
     invert_max : int, optional
-        Maximum size for random insertion, defaults to 30.
+        Maximum size for random insertion, defaults to 20.
     """
-    def __init__(self, invert_min=0, invert_max=30):
+    def __init__(self, invert_min=0, invert_max=20):
         self.invert_min = invert_min
         self.invert_max = invert_max
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly inverts segments of random DNA to a set of one-hot DNA sequences.
 
         Parameters
@@ -269,12 +269,12 @@ class RandomMutation(AugmentBase):
     Parameters
     ----------
     mutate_frac : float, optional
-        Probability of mutation for each nucleotide, defaults to 0.1.
+        Probability of mutation for each nucleotide, defaults to 0.05.
     """
-    def __init__(self, mutate_frac=0.1):
+    def __init__(self, mutate_frac=0.05):
         self.mutate_frac = mutate_frac
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly introduces mutations to a set of one-hot DNA sequences.
 
         Parameters
@@ -325,7 +325,7 @@ class RandomRC(AugmentBase):
         """
         self.rc_prob = rc_prob
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly transforms sequences in a batch with a reverse-complement transformation.
 
         Parameters
@@ -356,15 +356,15 @@ class RandomNoise(AugmentBase):
     Parameters
     ----------
     noise_mean : float, optional
-        Bias of the noise -- mean of Gaussian, defaults to 0.0.
+        Mean of the Gaussian noise, defaults to 0.0.
     noise_std : float, optional
-        Standard deviation of Gaussian, defaults to 0.2.
+        Standard deviation of the Gaussian noise, defaults to 0.2.
     """
     def __init__(self, noise_mean=0.0, noise_std=0.2):
         self.noise_mean = noise_mean
         self.noise_std = noise_std
 
-    def __call__(self, x: torch.Tensor) -> torch.Tensor:
+    def __call__(self, x):
         """Randomly adds Gaussian noise to a set of one-hot DNA sequences.
 
         Parameters

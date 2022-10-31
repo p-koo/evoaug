@@ -85,82 +85,96 @@
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">evoaug</span> <span class="kn">import</span> <span class="n">evoaug</span><span class="p">,</span> <span class="n">augment</span>
-<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;DEFINE PYTORCH MODEL&quot;</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="s2">&quot;DEFINE PYTORCH LOSS&quot;</span>
-<span class="n">optimizer_dict</span> <span class="o">=</span> <span class="s2">&quot;DEFINE OPTIMIZER OR OPTIMIZER DICT&quot;</span>
-<span class="n">ckpt_aug_path</span> <span class="o">=</span> <span class="s2">&quot;path-to-aug-checkpoint.ckpt&quot;</span>
-<span class="n">ckpt_finetune_path</span> <span class="o">=</span> <span class="s2">&quot;path-to-finetune-checkpoint.ckpt&quot;</span>
-
-<span class="n">augment_list</span> <span class="o">=</span> <span class="p">[</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomDeletion</span><span class="p">(</span><span class="n">delete_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delete_max</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomRC</span><span class="p">(</span><span class="n">rc_prob</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomInsertion</span><span class="p">(</span><span class="n">insert_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">insert_max</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomTranslocation</span><span class="p">(</span><span class="n">shift_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shift_max</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomMutation</span><span class="p">(</span><span class="n">mut_frac</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
-   <span class="n">augment</span><span class="o">.</span><span class="n">RandomNoise</span><span class="p">(</span><span class="n">noise_mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="n">robust_model</span> <span class="o">=</span> <span class="n">evoaug</span><span class="o">.</span><span class="n">RobustModel</span><span class="p">(</span>
-   <span class="n">model</span><span class="p">,</span>
-   <span class="n">criterion</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
-   <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer_dict</span><span class="p">,</span>
-   <span class="n">augment_list</span><span class="o">=</span><span class="n">augment_list</span><span class="p">,</span>
-   <span class="n">max_augs_per_seq</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># maximum number of augmentations per sequence</span>
-   <span class="n">hard_aug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># use max_augs_per_seq, otherwise sample randomly up to max</span>
-   <span class="n">inference_aug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># if true, keep augmentations on during inference time</span>
-<span class="p">)</span>
-
-<span class="c1"># set up callback</span>
-<span class="n">callback_topmodel</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
-   <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">save_top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">ckpt_aug_path</span>
-<span class="p">)</span>
-
-<span class="c1"># train model</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
-   <span class="n">gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-   <span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-   <span class="n">auto_select_gpus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-   <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-   <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ADD CALLBACKS&quot;</span><span class="p">,</span> <span class="s2">&quot;callback_topmodel&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="c1"># pre-train model with augmentations</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">robust_model</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">data_module</span><span class="p">)</span>
-
-<span class="c1"># load best model</span>
-<span class="n">robust_model</span> <span class="o">=</span> <span class="n">evoaug</span><span class="o">.</span><span class="n">load_model_from_checkpoint</span><span class="p">(</span><span class="n">robust_model</span><span class="p">,</span> <span class="n">ckpt_aug_path</span><span class="p">)</span>
-
-<span class="c1"># set up fine-tuning</span>
-<span class="n">robust_model</span><span class="o">.</span><span class="n">finetune</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">robust_model</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="s2">&quot;set up optimizer for fine-tuning&quot;</span>
-
-<span class="c1"># set up callback</span>
-<span class="n">callback_topmodel</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
-   <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span>
-   <span class="n">save_top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-   <span class="n">dirpath</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
-   <span class="n">filename</span><span class="o">=</span><span class="n">ckpt_finetune_path</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># set up pytorch lightning trainer</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
-   <span class="n">gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-   <span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-   <span class="n">auto_select_gpus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-   <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-   <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ADD CALLBACKS&quot;</span><span class="p">,</span> <span class="s2">&quot;callback_topmodel&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="c1"># fine-tune model</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">robust_model</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">data_module</span><span class="p">)</span>
-
-<span class="c1"># load best fine-tuned model</span>
-<span class="n">robust_model</span> <span class="o">=</span> <span class="n">evoaug</span><span class="o">.</span><span class="n">load_model_from_checkpoint</span><span class="p">(</span><span class="n">robust_model</span><span class="p">,</span> <span class="n">ckpt_finetune_path</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Import evoaug:
+.. code-block:: python</p>
+<blockquote>
+<div><p>from evoaug import evoaug, augment
+import pytorch_lightning as pl</p>
+</div></blockquote>
+<p>Define PyTorch model and modeling choices
+.. code-block:: python</p>
+<blockquote>
+<div><p>model = “DEFINE PYTORCH MODEL”
+loss = “DEFINE PYTORCH LOSS”
+optimizer_dict = “DEFINE OPTIMIZER OR OPTIMIZER DICT”
+ckpt_aug_path = “path-to-aug-checkpoint.ckpt”
+ckpt_finetune_path = “path-to-finetune-checkpoint.ckpt”</p>
+</div></blockquote>
+<p>Train model with augmentations
+.. code-block:: python</p>
+<blockquote>
+<div><dl class="simple">
+<dt>augment_list = [</dt><dd><p>augment.RandomDeletion(delete_min=0, delete_max=20),
+augment.RandomRC(rc_prob=0.5),
+augment.RandomInsertion(insert_min=0, insert_max=20),
+augment.RandomTranslocation(shift_min=0, shift_max=20),
+augment.RandomMutation(mut_frac=0.05),
+augment.RandomNoise(noise_mean=0, noise_std=0.2),</p>
+</dd>
+</dl>
+<p>]</p>
+<dl class="simple">
+<dt>robust_model = evoaug.RobustModel(</dt><dd><p>model,
+criterion=loss,
+optimizer=optimizer_dict,
+augment_list=augment_list,
+max_augs_per_seq=2,  # maximum number of augmentations per sequence
+hard_aug=True,  # use max_augs_per_seq, otherwise sample randomly up to max
+inference_aug=False,  # if true, keep augmentations on during inference time</p>
+</dd>
+</dl>
+<p>)</p>
+<p># set up callback
+callback_topmodel = pl.callbacks.ModelCheckpoint(</p>
+<blockquote>
+<div><p>monitor=”val_loss”, save_top_k=1, dirpath=output_dir, filename=ckpt_aug_path</p>
+</div></blockquote>
+<p>)</p>
+<p># train model
+trainer = pl.Trainer(</p>
+<blockquote>
+<div><p>gpus=1,
+max_epochs=100,
+auto_select_gpus=True,
+logger=None,
+callbacks=[“ADD CALLBACKS”, “callback_topmodel”],</p>
+</div></blockquote>
+<p>)</p>
+<p># pre-train model with augmentations
+trainer.fit(robust_model, datamodule=data_module)</p>
+<p># load best model
+robust_model = evoaug.load_model_from_checkpoint(robust_model, ckpt_aug_path)</p>
+</div></blockquote>
+<p>Fine-tune model without augmentations
+.. code-block:: python</p>
+<blockquote>
+<div><p># set up fine-tuning
+robust_model.finetune = True
+robust_model.optimizer = “set up optimizer for fine-tuning”</p>
+<p># set up callback
+callback_topmodel = pl.callbacks.ModelCheckpoint(</p>
+<blockquote>
+<div><p>monitor=”val_loss”,
+save_top_k=1,
+dirpath=output_dir,
+filename=ckpt_finetune_path,</p>
+</div></blockquote>
+<p>)</p>
+<p># set up pytorch lightning trainer
+trainer = pl.Trainer(</p>
+<blockquote>
+<div><p>gpus=1,
+max_epochs=100,
+auto_select_gpus=True,
+logger=None,
+callbacks=[“ADD CALLBACKS”, “callback_topmodel”],</p>
+</div></blockquote>
+<p>)</p>
+<p># fine-tune model
+trainer.fit(robust_model, datamodule=data_module)</p>
+<p># load best fine-tuned model
+robust_model = evoaug.load_model_from_checkpoint(robust_model, ckpt_finetune_path)</p>
+</div></blockquote>
 </div>
 </div>
 
