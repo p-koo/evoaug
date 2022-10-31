@@ -7,8 +7,5 @@ setup(
     packages=find_packages(),
     description = "A Python package that trains models with evolution-inspired data augmentations. ",
     python_requires=">=3.6",
-    install_requires=[
-        'torch',
-        'pytorch_lightning',
-        'numpy'],
+    install_requires=[],
 )
