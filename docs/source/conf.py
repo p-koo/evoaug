@@ -17,11 +17,16 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.napoleon',
+    'autoapi.extension',
 ]
+
+autoapi_type = 'python'
+autoapi_dirs = ['../../evoaug']
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
+    'torch': ('https://pytorch.org/docs/stable', None),
 }
 intersphinx_disabled_domains = ['std']
 

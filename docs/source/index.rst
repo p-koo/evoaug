@@ -2,11 +2,11 @@ Welcome to EvoAug's documentation!
 ===================================
 
 **EvoAug** is a Python library to train PyTorch
-models on regulatory genomics data with evolution-inspired 
-data augmentations. 
+models on regulatory genomics data with evolution-inspired
+data augmentations.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+Check out the :doc:`usage` for further information, including
+how to install the project.
 
 .. note::
 
@@ -16,6 +16,6 @@ Contents
 --------
 
 .. toctree::
+   :maxdepth: 2
 
    usage
-   api
