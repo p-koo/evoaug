@@ -16,14 +16,17 @@ Example
 -------
 
 Import evoaug:
+
 .. code-block:: python
 
    from evoaug import evoaug, augment
    import pytorch_lightning as pl
 
 
-Define PyTorch model and modeling choices
+Define PyTorch model and modeling choices:
+
 .. code-block:: python
+
    model = "DEFINE PYTORCH MODEL"
    loss = "DEFINE PYTORCH LOSS"
    optimizer_dict = "DEFINE OPTIMIZER OR OPTIMIZER DICT"
@@ -31,8 +34,10 @@ Define PyTorch model and modeling choices
    ckpt_finetune_path = "path-to-finetune-checkpoint.ckpt"
 
 
-Train model with augmentations
+Train model with augmentations:
+
 .. code-block:: python
+
    augment_list = [
       augment.RandomDeletion(delete_min=0, delete_max=20),
       augment.RandomRC(rc_prob=0.5),
@@ -73,8 +78,10 @@ Train model with augmentations
    robust_model = evoaug.load_model_from_checkpoint(robust_model, ckpt_aug_path)
 
 
-Fine-tune model without augmentations
+Fine-tune model without augmentations:
+
 .. code-block:: python
+
    # set up fine-tuning
    robust_model.finetune = True
    robust_model.optimizer = "set up optimizer for fine-tuning"
