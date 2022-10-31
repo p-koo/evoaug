@@ -152,6 +152,19 @@ class RobustModel(LightningModule):
         return x_padded
 
 
+    def finetune_mode(self, optimizer=None):
+        """Turn on finetune flag -- no augmentations during training"""
+        self.finetune = True
+        if optimizer != None:
+            self.optimizer = optimizer
+
+
+    def augment_mode(self):
+        """Turn off finetune flag -- no augmentations during training"""
+        self.finetune = False
+
+
+
 def load_model_from_checkpoint(model, checkpoint_path):
     """Load PyTorch lightning model from checkpoint.
 
