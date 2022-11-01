@@ -116,16 +116,17 @@ Examples on Google Colab
 
 DeepSTARR analysis:
 
-``
+.. code-block:: python
+
 https://colab.research.google.com/drive/1a2fiRPBd1xvoJf0WNiMUgTYiLTs1XETf?usp=sharing
-``
 
 
 ChIP-seq analysis:
 
-``
+.. code-block:: python
+
 https://colab.research.google.com/drive/1GZ8v4Tq3LQMZI30qvdhF7ZW6Kf5GDyKX?usp=sharing
-``
+
 
 
 
