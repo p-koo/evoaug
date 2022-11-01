@@ -153,7 +153,7 @@ class RobustModel(LightningModule):
 
 
     def finetune_mode(self, optimizer=None):
-        """Turn on finetune flag -- no augmentations during training"""
+        """Turn on finetune flag -- no augmentations during training."""
         self.finetune = True
         if optimizer != None:
             self.optimizer = optimizer

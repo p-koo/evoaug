@@ -104,7 +104,7 @@ Functions
 
    .. py:method:: finetune_mode(optimizer=None)
 
-      Turn on finetune flag -- no augmentations during training
+      Turn on finetune flag -- no augmentations during training.
 
 
 
