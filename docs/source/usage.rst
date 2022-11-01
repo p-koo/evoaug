@@ -108,3 +108,24 @@ Fine-tune model without augmentations:
 
    # load best fine-tuned model
    robust_model = evoaug.load_model_from_checkpoint(robust_model, ckpt_finetune_path)
+
+
+
+Examples on Google Colab
+------------------------
+
+DeepSTARR analysis:
+
+``
+https://colab.research.google.com/drive/1a2fiRPBd1xvoJf0WNiMUgTYiLTs1XETf?usp=sharing
+``
+
+
+ChIP-seq analysis:
+
+``
+https://colab.research.google.com/drive/1GZ8v4Tq3LQMZI30qvdhF7ZW6Kf5GDyKX?usp=sharing
+``
+
+
+
