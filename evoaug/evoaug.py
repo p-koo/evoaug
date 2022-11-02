@@ -4,7 +4,7 @@ during training.
 """
 
 import torch
-from pytorch_lightning.core.module import LightningModule
+from pytorch_lightning.core.lightning import LightningModule # pytorch_lightning.core.module
 import numpy as np
 
 
