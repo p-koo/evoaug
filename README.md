@@ -111,12 +111,8 @@ robust_model = evoaug.load_model_from_checkpoint(robust_model, ckpt_finetune_pat
 #### Examples on Google Colab:
 
 DeepSTARR analysis:
-```
-https://colab.research.google.com/drive/1a2fiRPBd1xvoJf0WNiMUgTYiLTs1XETf?usp=sharing
-```
+- Example analysis: https://colab.research.google.com/drive/1a2fiRPBd1xvoJf0WNiMUgTYiLTs1XETf?usp=sharing
+- Example load model and perform attribution analysis: https://colab.research.google.com/drive/11DVkhyX2VhhCSbCGkW3XjviMxTufBvZh?usp=sharing
 
 ChIP-seq analysis:
-```
-https://colab.research.google.com/drive/1GZ8v4Tq3LQMZI30qvdhF7ZW6Kf5GDyKX?usp=sharing
-```
-
+- Example analysis: https://colab.research.google.com/drive/1GZ8v4Tq3LQMZI30qvdhF7ZW6Kf5GDyKX?usp=sharing
