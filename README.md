@@ -1,6 +1,6 @@
 # EvoAug
 
-EvoAug is a PyTorch package to pretrain sequence-based deep learning models for regulatory genomics data with evolution-inspired data augmentations followed by a finetuning on the original, unperturbed sequence data. This work uses PyTorch Lightning -- LightningModule -- to define a model wrapper that is used for training. This is work that directly follows from "EvoAug: improving generalization and interpretability of genomic deep neural networks with evolution-inspired data augmentations" by Nicholas Keone Lee, Ziqi (Amber) Tang, Shushan Toneyan, and Peter K Koo. Code in this repository is shared under the MIT License. For additional information, see [ReadTheDocs.org](https://evoaug.readthedocs.io/en/latest/index.html).
+EvoAug is a PyTorch package to pretrain sequence-based deep learning models for regulatory genomics data with evolution-inspired data augmentations followed by a finetuning on the original, unperturbed sequence data. This work uses PyTorch Lightning -- LightningModule -- to define a model wrapper that is used for training. This is work that directly follows from "EvoAug: improving generalization and interpretability of genomic deep neural networks with evolution-inspired data augmentations" by Nicholas Keone Lee, Ziqi (Amber) Tang, Shushan Toneyan, and Peter K Koo. Code in this repository is shared under the MIT License. For additional information, see documentation on [EvoAug.ReadTheDocs.io](https://evoaug.readthedocs.io/en/latest/index.html).
 
 For questions, email: koo@cshl.edu
 
@@ -25,6 +25,7 @@ pytorch_lightning 1.7.7
 numpy 1.21.6
 ```
 
+Note: For newer versions of pytorch_lightning, the pl.Trainer call will need to be modified accordingly as the arguments for gpus has changed from version 1.7.
 
 #### Example
 
