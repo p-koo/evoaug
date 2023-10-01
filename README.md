@@ -117,3 +117,20 @@ DeepSTARR analysis:
 
 ChIP-seq analysis:
 - Example analysis: https://colab.research.google.com/drive/1GZ8v4Tq3LQMZI30qvdhF7ZW6Kf5GDyKX?usp=sharing
+
+# Citation
+
+If you find out work useful, please cite our paper.
+
+```bibtex
+@article{lee2023evoaug,
+  title={EvoAug: improving generalization and interpretability of genomic deep neural networks with evolution-inspired data augmentations},
+  author={Lee, Nicholas Keone and Tang, Ziqi and Toneyan, Shushan and Koo, Peter K},
+  journal={Genome Biology},
+  volume={24},
+  number={1},
+  pages={105},
+  year={2023},
+  publisher={Springer}
+}
+```
