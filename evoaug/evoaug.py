@@ -4,11 +4,11 @@ during training.
 """
 
 import torch
-from pytorch_lightning import LightningModule
+import lightning.pytorch as pl
 import numpy as np
 
 
-class RobustModel(LightningModule):
+class RobustModel(pl.LightningModule):
     """PyTorch Lightning module to specify how augmentation should be applied to a model.
 
     Parameters
