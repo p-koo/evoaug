@@ -21,17 +21,17 @@ pip install evoaug
 
 ```
 torch 1.12.1+cu113
-pytorch_lightning 1.7.7
+lightning >= 2.0.0
 numpy 1.21.6
 ```
 
-Note: For newer versions of pytorch_lightning, the pl.Trainer call will need to be modified accordingly as the arguments for gpus has changed from version 1.7.
+Note: This package has been updated to use the newer `lightning` package instead of `pytorch_lightning`. For older versions that use pytorch_lightning, the pl.Trainer call will need to be modified accordingly as the arguments for gpus has changed from version 1.7.
 
 #### Example
 
 ```python
 from evoaug import evoaug, augment
-import pytorch_lightning as pl
+import lightning.pytorch as pl
 
 model = "DEFINE PYTORCH MODEL"
 loss = "DEFINE PYTORCH LOSS"
@@ -66,9 +66,9 @@ callback_topmodel = pl.callbacks.ModelCheckpoint(
 
 # train model
 trainer = pl.Trainer(
-	gpus=1,
+	accelerator="gpu",
+	devices=1,
 	max_epochs=100,
-	auto_select_gpus=True,
 	logger=None,
 	callbacks=["ADD CALLBACKS", callback_topmodel]
 )
@@ -94,9 +94,8 @@ callback_topmodel = pl.callbacks.ModelCheckpoint(
 # set up pytorch lightning trainer
 trainer = pl.Trainer(
 	accelerator="gpu",
-	device=1,
+	devices=1,
 	max_epochs=100,
-	auto_select_gpus=True,
 	logger=None,
 	callbacks=["ADD CALLBACKS", callback_topmodel]
 )

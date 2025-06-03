@@ -20,7 +20,7 @@ Import evoaug:
 .. code-block:: python
 
    from evoaug import evoaug, augment
-   import pytorch_lightning as pl
+   import lightning.pytorch as pl
 
 
 Define PyTorch model and modeling choices:
@@ -64,9 +64,9 @@ Train model with augmentations:
 
    # train model
    trainer = pl.Trainer(
-      gpus=1,
+      accelerator="gpu",
+      devices=1,
       max_epochs=100,
-      auto_select_gpus=True,
       logger=None,
       callbacks=["ADD CALLBACKS", "callback_topmodel"],
    )
@@ -96,9 +96,9 @@ Fine-tune model without augmentations:
 
    # set up pytorch lightning trainer
    trainer = pl.Trainer(
-      gpus=1,
+      accelerator="gpu",
+      devices=1,
       max_epochs=100,
-      auto_select_gpus=True,
       logger=None,
       callbacks=["ADD CALLBACKS", "callback_topmodel"],
    )

@@ -271,8 +271,8 @@ class RandomMutation(AugmentBase):
     mutate_frac : float, optional
         Probability of mutation for each nucleotide, defaults to 0.05.
     """
-    def __init__(self, mutate_frac=0.05):
-        self.mutate_frac = mutate_frac
+    def __init__(self, mut_frac=0.05):
+        self.mutate_frac = mut_frac
 
     def __call__(self, x):
         """Randomly introduces mutations to a set of one-hot DNA sequences.
